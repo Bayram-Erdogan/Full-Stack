@@ -1,0 +1,16 @@
+sequenceDiagram
+    participant Browser
+    participant Server
+    participant SPA
+    
+    /* 1- Käyttäjä siirtyy ensin osoitteeseen "https://studies.cs.helsinki.fi/exampleapp/spa" ja suorittaa tässä vaiheessa GET-toiminnon. Palvelin käsittelee tämän pyynnön ja lähettää sivun selaimeen. Kun sivu ladataan selaimeen, myös sivulla olevat SPA HTML-, spa.js-, main.css ja data.json-tiedostot ladataan selaimeen. 
+
+    Tässä vaiheessa käyttäjä näkee sivun käyttöliittymän, mutta ei ole vielä lähettänyt tietoja palvelimelle.
+    */
+
+    Browser->>Server: GET https://studies.cs.helsinki.fi/exampleapp/spa
+    activate Server
+    Server-->>Browser: SPA HTML, spa.js, main.css, data.json
+    deactivate Server
+    
+    

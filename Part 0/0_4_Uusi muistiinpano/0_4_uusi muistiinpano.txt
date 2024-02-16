@@ -1,0 +1,25 @@
+sequenceDiagram
+    participant browser
+    participant server
+    
+
+    /* Tiedot lähetetään palvelimelle lomakkeella. Se lähetetään postin kautta. */
+
+    browser->>server: POST https://studies.cs.helsinki.fi/exampleapp/notes
+    activate server
+
+    /* Palvelin vastaanottaa sille lähetetyt tiedot ja lähettää tarvittavat tiedot sisältävän vastauksen. */
+
+    server-->>browser: { "status": "success", "message": "Note created successfully" }
+    deactivate server
+
+    /*Kun selain vastaanottaa tiedot palvelimelta, se ryhtyy toimiin ja näyttää uuden muistiinpanon aiempien muistiinpanojen kanssa. Tämän prosessin aikana tiedot vastaanotetaan palvelimelta getin kautta. * /
+
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/data.json 
+    activate server
+    server-->>browser: Päivitetyt muistiinpanot
+    deactivate server
+
+    /* Kun get-toiminto suoritetaan sivulla, main.css ja main.js ladataan selaimeen sivulla olevien linkkien ansiosta. Kun main.js vastaanotetaan, siinä olevat koodit suoritetaan ja data.json ladataan selaimeen. */
+
+
