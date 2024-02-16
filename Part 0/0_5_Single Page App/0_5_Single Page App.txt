@@ -3,14 +3,44 @@ sequenceDiagram
     participant Server
     participant SPA
     
-    /* 1- Käyttäjä siirtyy ensin osoitteeseen "https://studies.cs.helsinki.fi/exampleapp/spa" ja suorittaa tässä vaiheessa GET-toiminnon. Palvelin käsittelee tämän pyynnön ja lähettää sivun selaimeen. Kun sivu ladataan selaimeen, myös sivulla olevat SPA HTML-, spa.js-, main.css ja data.json-tiedostot ladataan selaimeen. 
-
-    Tässä vaiheessa käyttäjä näkee sivun käyttöliittymän, mutta ei ole vielä lähettänyt tietoja palvelimelle.
+    /*
+        1- Käyttäjä siirtyy ensin osoitteeseen "https://studies.cs.helsinki.fi/exampleapp/spa" ja suorittaa tässä vaiheessa GET-toiminnon.
+        Palvelin käsittelee tämän pyynnön ja lähettää sivun selaimeen.
     */
 
     Browser->>Server: GET https://studies.cs.helsinki.fi/exampleapp/spa
     activate Server
-    Server-->>Browser: SPA HTML, spa.js, main.css, data.json
+    Server-->>Browser: SPA HTML,
     deactivate Server
     
+
+    /*
+        2- HTML-koodeja suorittava selain näkee main.css-tiedoston linkin kautta ja lataa myös sen. Siten main.css ladataan selaimeen.
+    */
     
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/main.css
+    activate server
+    server-->>browser: main.css
+    deactivate server
+
+    /*
+        3- spa.js-tiedosto ladataan HTML-koodien joukossa olevan <script>-tunnisteen src-attribuutin kautta.
+    */
+
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/spa.js
+    activate server
+    server-->>browser: spa.js
+    deactivate server
+
+    /* 
+        4- Kun spa.js vastaanotetaan, siinä olevat koodit suoritetaan ja data.json ladataan selaimeen. 
+    */
+
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/data.json
+    activate server
+    server-->>browser: Json-tietotyyppisten tiedostojen sisältö ladataan.
+    deactivate server 
+
+    /* 
+        5- Tässä vaiheessa käyttäjä näkee sivun käyttöliittymän, mutta ei ole vielä lähettänyt tietoja palvelimelle.
+    */

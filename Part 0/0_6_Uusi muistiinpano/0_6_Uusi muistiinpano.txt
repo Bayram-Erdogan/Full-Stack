@@ -1,15 +1,19 @@
+  sequenceDiagram
+    participant browser
+    participant server
 
-    /* Edellisen tehtevän jatkona käyttäjä lähettää tiedot palvelimelle lomakkeen kautta osoitteessa https://studies.cs.helsinki.fi/exampleapp/spa. Sen jälkeen se suorittaa SPA:n palvelimelta saamilleen tiedostoille, mikä päivittää sivun käyttöliittymän lataamatta sivua uudelleen. */
-
-    Browser->>SPA: Execute spa.js
-    activate SPA
-    SPA-->>Browser: SPA initialized
-    deactivate SPA
+    /* 
+        1- Edellisen tehtevän jatkona käyttäjä lähettää tiedot palvelimelle lomakkeen kautta osoitteessa
+        https://studies.cs.helsinki.fi/exampleapp/new_note_spa
+    */
     
-    /* Koska sivu ei päivity, sivu ei lataa muita tiedostoja uudelleen. Vain json-tyyppinen new_note_spa-tiedosto ladataan. Tällä menetelmällä sovellus toimii nopeammin. */
-
-    Browser->>Server: Hae new_note_spa
-    activate Server
-    Server-->>Browser: [{ "content": "Example note", "date": "2023-01-01" }, ... ]
-    deactivate Server
-    
+    browser->>server: POST https://studies.cs.helsinki.fi/exampleapp/notes
+    activate server
+    server-->>browser: HTML document
+    deactivate server
+  
+    /*
+        Palvelin, joka suorittaa selaimelta vastaanotetun postauksen, lisää tiedot sivulle päivittämättä sivua sivulla olevan spa.js-tiedoston kautta.
+        Koska sivu ei päivity, sivu ei lataa muita tiedostoja uudelleen. Vain lähetetty json-tyyppinen new_note_spa-tiedosto näkyy
+        konsolissa. Tämä menetelmä nopeuttaa sovelluksen toimintaa.
+    */
