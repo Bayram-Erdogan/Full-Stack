@@ -1,0 +1,107 @@
+1- React uygulamasinin kurulumu : Terminal'e sirasiyla yazilacak olan asagidaki kod yeni bir react uygulamasi olusturuyor.
+
+	npm create vite@latest part1 -- --template react
+	cd part1
+	npm install
+
+2- Uygulamanin calistirilmasi : Yine terminal'de yazilacak olan asagidaki kod ile uygulama local host'ta calisitiriliyor.
+
+	npm run dev
+
+3- Bilesen - Komponent 	: Uygulamada App.jsx dosyasinda asagidaki sekilde olusturulan kod bloguna bilesen denir.
+
+	const App = () => (	=> Not	: React bileşenlerinin adları (App) büyük harfle başlatilmalidir.
+  	  <div>			=> Not	: Bir React bileşeninin içeriğinin (genellikle) bir kök öğe (<div>) içermesi gerekir.
+    	    <p>Hello world</p>
+  	  </div>
+	)
+
+	export default App  =>  Yazdigimiz kodlarin disa aktarimini saglar. Bu satir olmaz ise ekranda bir sey görunmeyecektir.
+
+4- Birden fazla bilesen	: Bir applikasyonda birden fazla bilesen olabilir. Bu durumda bilesenler kendi aralarinda iletisime gecebilirler.
+   Asagidaki Hello bileseni ana bilesen olan App bileseni tarafindan cagirilmaktadir. (Bir uygulamanın en üstteki kök bileşeninin App
+   olarak adlandırılması da güçlü bir kuraldır.) App bileseninden calismaya baslayan uygulama ekrana önce Greetings yazdirir. Sonra
+   Hello bilesenini görur ve onu cagirir. Hello bileseni de ekrana Hello world yazdirir. Bir bilesen birden fazla cagirilabilir.
+
+	const Hello = () => {
+ 	  return (
+    	    <div>
+      	      <p>Hello world</p>
+    	    </div>
+  	  )
+	}
+
+	const App = () => {
+  	  return (
+    	    <div>
+      	      <h1>Greetings</h1>
+	      <Hello />		=> Bu satirda Hello bileseni cagiriliyor.
+    	    </div>
+  	  )
+	}
+
+5- Bilesenler arasinda veri aktarimi	: Bilesenler arasinda veri aktarimi props kullanilarak yapilabilmektedir. props parametresine
+   eklenen name bilesen cagilirken value olarak kullanilir.
+
+	const Hello = (props) => {
+  	  return (
+    	    <div>
+      	      <p>Hello {props.name}</p>
+    	    </div>
+  	  )
+	}
+
+	const App = () => {
+  	  return (
+    	    <div>
+      	      <h1>Greetings</h1>
+      	      <Hello name="Maya" />	=> name value olarak kullanirken "Maya" name verilen degerdir.
+      	      <Hello name="Pekka" />
+    	    </div>
+  	  )
+	}
+
+  Birden fazla value kullanimi mumkun olabilir.
+
+	const Hello = (props) => {
+  	  console.log(props)
+  	  return (
+    	    <div>
+      	      <p>
+        	Hello {props.name}, you are {props.age} years old	=> Ayni satirda birden fazla value kullaniliyor.
+      	      </p>
+    	    </div>
+  	  )
+	}
+
+	const App = () => {
+  	  const nimi = 'Pekka' => Ana bilesende value (degisken) tanimlaniyor.
+  	  const ika = 10
+
+  	  return (
+    	    <div>
+      	      <h1>Greetings</h1>
+      	      <Hello name="Maya" age={26 + 10} /> => value(degisken)'lere  deger atamasi yapiliyor.
+      	      <Hello name={nimi} age={ika} />
+    	    </div>
+  	  )
+	}
+
+6-  React'ta Nesne kullanilmamli	: React'ta, parantez içinde işlenen bireysel şeylerin sayılar veya dizeler gibi ilkel değerler olması gerekir.
+    Bu yuzden react'ta nesne kullanilmamali.
+
+	const App = () => {
+  	  const friends = [
+    	    { name: 'Leevi', age: 4 },
+    	    { name: 'Venla', age: 10 },
+  	  ]
+
+  	  return (
+    	    <div>
+      	      <p>{friends[0].name} {friends[0].age}</p> => Bir array'deki elemana ulasmak icin onun index numarasi ve value bilgisi kullanilir.
+      	      <p>{friends[1].name} {friends[1].age}</p>
+    	    </div>
+  	  )
+	}
+
+	export default App

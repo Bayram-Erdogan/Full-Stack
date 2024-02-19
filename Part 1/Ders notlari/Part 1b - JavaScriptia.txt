@@ -1,0 +1,21 @@
+1- Degiskenler	: JavaScript'te değişkenleri tanımlamanın birkaç yolu vardır;
+		  
+		  1-) const ile tanimlanan degiskenler aslida degisken olmayip sabittirler. Yani const ile tanimlanan degiskenlerin degerleri degistirilemezler.
+		      Bu yuzden sabit degisken olarak bilinir.
+
+		  2-) let ile tanimlanan degiskenlerin ise degerleri degistirilebilirler.
+
+		  3-) JavaScript'te değişkenleri var anahtar sözcüğünü kullanarak tanımlamak da mümkündür. Ancak bu kursta var kullanılması önerilmez, bu nedenle
+		      her zaman const veya let kullacagiz.
+
+	const x = 1
+	let y = 5
+
+	console.log(x, y)   => 1, 5 are printed
+	y += 10
+	console.log(x, y)   => 1, 15 are printed
+	y = 'sometext'
+	console.log(x, y)   => 1, sometext are printed
+	x = 4               => causes an error
+
+
