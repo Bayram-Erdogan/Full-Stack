@@ -18,4 +18,125 @@
 	console.log(x, y)   => 1, sometext are printed
 	x = 4               => causes an error
 
+2- Arrayler	: Arrayler const olarak tanimlansan bile icerikleri degistirilebilir. Cunku arrayler object'dir. 
 
+	const t = [1, -1, 3]
+
+	console.log(t.length) // tulostuu 3
+	console.log(t[1])     // tulostuu -1
+
+	Array'e yeni bir deger eklemek icin push() kullanilir.
+
+		t.push(5)             // lisätään taulukkoon luku 5
+		console.log(t.length) // tulostuu 4
+
+	Arraylerin elemanlari arasinda gezinmenin bir yoluda forEach döngusudur. forEach , dizinin her bir öğesi için işlevi çağırır ve dizinin her bir öğesini birer
+	birer parametre olarak 	işleve iletir.
+
+		t.forEach(value => {
+  	   	  console.log(value)  // tulostuu 1, -1, 3, 5 omille riveilleen
+		})
+
+	concat() ile orjinal arrayin icerigi degistirilmezken orjinal arrayin kopyasi alinir ve ona parametre olarak verilen deger eklenebilir.
+
+		const t = [1, -1, 3]
+		const t2 = t.concat(5)
+
+		console.log(t)  // tulostuu [1, -1, 3]
+		console.log(t2) // tulostuu [1, -1, 3, 5]   
+
+
+	map() ile orjinal array'in elemanlarinda degisiklikler yapilabilir. Asagidaki ilk örnekde her bir eleman 2 ile carpilarak yazdiriliyor.
+		const t = [1, 2, 3]
+
+		const m1 = t.map(value => value * 2)
+		console.log(m1)   // tulostuu [2, 4, 6] 
+      
+
+	Alttaki örnekte ise elemanlari '<li>' etiketleri icine yazdiriyoruz. Böylece map() ile array'imizi HTML kodu içeren bir array'e dönüştürüyoruz.
+
+		const m2 = t.map(value => '<li>' + value + '</li>')
+		console.log(m2)  
+		// tulostuu [ '<li>1</li>', '<li>2</li>', '<li>3</li>' ]
+
+	Asagidaki kod kumesinde ise t isimli array'imizin elemanlarini sirasi ile bir baska array elemanlari ile eslestiriyoruz. Ilk iki eleman sirasiyla eslesme yaparken
+	2 indexteki(3) elemandan sonrasi ...rest adinda baska bir array'e aktariliyor. 
+
+	const t = [1, 2, 3, 4, 5]
+	const [first, second, ...rest] = t
+
+	console.log(first, second)  // tulostuu 1, 2
+	console.log(rest)          // tulostuu [3, 4 ,5]
+
+3- Nesneler	: Key-value iliskisinde olusturulan nesnelerde value'ler herhangi bir turde olabilir. ( sayılar, dizeler, arrayler, nesneler)
+
+
+	const object1 = {
+  	  name: 'Arto Hellas',
+  	  age: 35,
+  	  education: 'Filosofian tohtori',
+	}
+
+	const object2 = {
+  	  name: 'Full Stack -websovelluskehitys',
+  	  level: 'aineopinto',
+  	  size: 5,
+	}
+
+	const object3 = {
+  	  name: {
+    	  first: 'Juha',
+    	  last: 'Tauriainen',
+  	  },
+  	  grades: [2, 3, 5, 3],
+  	  department: 'TKTL',
+	}
+
+	Nesnenin value bilgileri nokta gösterimi veya köşeli parantezlerle yapilir:
+
+		console.log(object1.name)         // tulostuu Arto Hellas
+		const fieldName = 'age' 
+		console.log(object1[fieldName])    // tulostuu 35
+
+	Nokta gösterimi veya köşeli parantez kullanılarak nesnelere anında key-value eklenebilir:
+
+		object1.address = 'Tapiola'
+		object1['secret number'] = 12341 => eger eklenecek olan degerin veri tipi dize degil ise [] kullanilmalidir.
+
+4- Fonksiyonlar	: Fonksiyonlar asagida gösterildigi gibi tanimlanir.
+
+	const sum = (p1, p2) => {
+  	  console.log(p1)
+  	  console.log(p2)
+  	  return p1 + p2
+	}
+
+	Fonksiyonlar isimleri ile cagirilirlar.
+
+		const result = sum(1, 5)
+		console.log(result)
+
+	Tek parametreli fonksiyonlarda ()'lere gerek yoktur.
+
+		const square = p => {
+  		console.log(p)
+  		return p * p
+		}
+
+	yukaridaki fonksiyonun yazdirilmadan kullanilma sekli.
+
+		const square = p => p * p 	=> Bu format özellikle arraylerle çalışırken, örneğin map() yöntemini kullanarak kullanışlıdır:
+
+		const t = [1, 2, 3]
+		const tSquared = t.map(p => p * p)
+		// tSquared on nyt [1, 4, 9]
+
+	Ok (=>) işlevi JavaScript'e yalnızca birkaç yıl önce ES6 sürümüyle geldi. Bundan önce, işlevleri tanımlamanın tek yolu function  anahtar sözcüğünü kullanmaktı. Fonksiyon tanımlamanın iki yolu vardır; fonksiyona, function bildirimi türünde bir ad verilebilir ve bu, fonksiyona atıfta bulunmak için kullanılabilir:
+
+	Diğer bir yol ise tanımı fonksiyon ifadesi olarak yapmaktır . Bu durumda fonksiyona bir isim vermeye gerek yoktur ve tanım diğer kodların arasında bulunabilir:
+
+		const average = function(a, b) {
+  		  return (a + b) / 2
+		}
+
+		const vastaus = average(2, 5)
