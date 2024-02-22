@@ -1,0 +1,107 @@
+1 - Bilesenlerin yardimci fonksiyonlari	:
+
+	const Hello = (props) => {
+  	  return (
+    	    <div>
+      	      <p>
+        	Hello {props.name}, you are {props.age} years old
+      	      </p>
+    	    </div>
+  	  )
+	}
+
+	const App = () => {
+  	  const nimi = 'Pekka'
+  	  const ika = 10
+
+  	  return (
+    	    <div>
+      	      <h1>Greetings</h1>
+      	      <Hello name="Maya" age={26 + 10} />
+      	      <Hello name={nimi} age={ika} />
+    	    </div>
+  	  )
+	}
+
+	Yukarida bulunan Hello bilesenini selamlanacak kisinin dogum yilini tahmin edecek bir sekilide genisletmek istersek;
+
+	const Hello = (props) => {
+
+	// Asagidaki  bornYear methodunu Hello bilesenin icine ekleriz.
+
+  	  const bornYear = () => {
+
+    	  const yearNow = new Date().getFullYear() 	=> Date class'indan bir obje olusturup onu bir degisken icine atiyoruz.
+
+    	  return yearNow - props.age			=> Daha sonra ise gunumuz yilindan selamlanacak kisinin yasini cikartip return ediyoruz.
+  	  }
+
+  	  return (
+    	    <div>
+      	      <p>
+        	Hello {props.name}, you are {props.age} years old
+      	      </p>
+ 
+	      <p>So you were probably born {bornYear()}</p>	=> Sonra ise {} icersinde methodumuzu cagiririz.
+    	    </div>
+  	  )
+	}
+
+2- Destructuring (Seklini bozma, yikim)	: Yukaridaki Hello bilesenini daha da sadelestirmek istersek
+
+	props = {
+  	  name: 'Maya',
+  	  age: 36,
+	} 
+
+	const Hello = (props) => {
+
+	// App bileseni icindeki key'lerin value'lerini Hello icinde bir degiskene tanimlariz.
+
+  	  const name = props.name
+  	  const age = props.age
+
+  	  const bornYear = () => new Date().getFullYear() - age		=> Daha sonra ise bornYear methodunu tek satira indirmek icin suanki yildan
+	  								   age'i cikartarak return ederiz.
+
+  	  return (
+    	    <div>
+      	      <p>Hello {name}, you are {age} years old</p>
+      	      <p>So you were probably born {bornYear()}</p>
+    	    </div>
+  	  )
+	}
+
+	// Yıkım, yardımcı değişkenlerin tanımlanmasını daha da kolaylaştırır. Nesnenin nesne değişkenlerinin değerlerini doğrudan kendi bireysel
+	   değişkenlerimizde "toplamamıza" olanak tanır:
+
+	const Hello = (props) => {
+
+  	  const { name, age } = props		=> Bu satirda props.name ve props.age dogrudan bizim name ve age degiskenlerine tanimlanir.
+
+  	  const bornYear = () => new Date().getFullYear() - age
+
+ 	  return (
+ 	    <div>
+  	      <p>Hello {name}, you are {age} years old</p>
+ 	      <p>So you were probably born {bornYear()}</p>
+    	    </div>
+  	  )
+	}
+
+	// Bunu bir adim daha ileri göturmek istedigimizde ise
+
+	const Hello = ({ name, age }) => {	=> Bu satir ile doğrudan bileşen tarafından alınan value'lerin name ve age değişkenlerine
+						   yerleştirilmesiyle yapılıyor.
+
+  	  const bornYear = () => new Date().getFullYear() - age
+
+  	  return (
+    	    <div>
+      	      <p>
+        	Hello {name}, you are {age} years old
+      	      </p>
+      	      <p>So you were probably born {bornYear()}</p>
+    	    </div>
+  	  )
+	}
