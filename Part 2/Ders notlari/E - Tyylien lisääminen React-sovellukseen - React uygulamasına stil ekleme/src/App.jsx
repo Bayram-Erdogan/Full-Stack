@@ -32,7 +32,7 @@ const App = () => {
       content: newNote,
       important: Math.random() > 0.5,
     }
-  
+
     noteService
       .create(noteObject)
         .then(returnedNote => {
@@ -45,14 +45,14 @@ const App = () => {
     const url = `http://localhost:3001/notes/${id}`
     const note = notes.find(n => n.id === id)
     const changedNote = { ...note, important: !note.important }
-  
+
     noteService
       .update(id, changedNote)
         .then(returnedNote => {
         setNotes(notes.map(note => note.id !== id ? note : returnedNote))
       })
       .catch(error => {
-      // catch icerisine setNotes sitirina kadar olan notlar eklendi. öncesinde alert vardi. ve .error class'a css özellikleri eklendi 
+      // catch icerisine setNotes sitirina kadar olan notlar eklendi. öncesinde alert vardi. ve .error class'a css özellikleri eklendi
         setErrorMessage(
           `Note '${note.content}' was already removed from server`
         )
@@ -68,7 +68,7 @@ const App = () => {
     if (message === null) {
       return null
     }
-  
+
     return (
       <div className="error">
         {message}
@@ -92,9 +92,9 @@ const App = () => {
         <button onClick={() => setShowAll(!showAll)}>
           show {showAll ? 'important' : 'all' }
         </button>
-      </div>      
+      </div>
       <ul>
-        {notesToShow.map(note => 
+        {notesToShow.map(note =>
           <Note
             key={note.id}
             note={note}
@@ -108,7 +108,7 @@ const App = () => {
           onChange={handleNoteChange}
         />
         <button type="submit">save</button>
-      </form> 
+      </form>
     </div>
   )
 }
@@ -131,7 +131,7 @@ const App = () => {
   const [notes, setNotes] = useState([])
   const [newNote, setNewNote] = useState('')
   const [showAll, setShowAll] = useState(false)
-  const [errorMessage, setErrorMessage] = useState('some error happened...') 
+  const [errorMessage, setErrorMessage] = useState('some error happened...')
 
   useEffect(() => {
     noteService
@@ -147,7 +147,7 @@ const App = () => {
       content: newNote,
       important: Math.random() > 0.5,
     }
-  
+
     noteService
       .create(noteObject)
         .then(returnedNote => {
@@ -160,14 +160,14 @@ const App = () => {
     const url = `http://localhost:3001/notes/${id}`
     const note = notes.find(n => n.id === id)
     const changedNote = { ...note, important: !note.important }
-  
+
     noteService
       .update(id, changedNote)
         .then(returnedNote => {
         setNotes(notes.map(note => note.id !== id ? note : returnedNote))
       })
       .catch(error => {
-       
+
         setErrorMessage(
           `Note '${note.content}' was already removed from server`
         )
@@ -182,7 +182,7 @@ const App = () => {
     if (message === null) {
       return null
     }
-  
+
     return (
       <div className="error">
         {message}
@@ -197,7 +197,7 @@ const App = () => {
       fontStyle: 'italic',
       fontSize: 16
     }
-  
+
     return (
       <div style={footerStyle}>
         <br />
@@ -217,14 +217,14 @@ const App = () => {
   return (
     <div>
       <h1>Notes</h1>
-       <Notification message={errorMessage} /> 
+       <Notification message={errorMessage} />
       <div>
         <button onClick={() => setShowAll(!showAll)}>
           show {showAll ? 'important' : 'all' }
         </button>
-      </div>      
+      </div>
       <ul>
-        {notesToShow.map(note => 
+        {notesToShow.map(note =>
           <Note
             key={note.id}
             note={note}
