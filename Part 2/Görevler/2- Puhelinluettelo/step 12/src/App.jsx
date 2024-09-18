@@ -1,19 +1,4 @@
-/*
- 2.17*: puhelinluettelo step12
-
-  Avaa sovelluksesi kahteen selaimeen. Jos poistat jonkun henkilön selaimella 1 hieman ennen kuin yrität muuttaa
-  henkilön numeroa selaimella 2, tapahtuu virhetilanne:
-
-  Korjaa ongelma osan 2 esimerkin promise ja virheet hengessä ja siten, että käyttäjälle ilmoitetaan operaation
-  epäonnistumisesta. Onnistuneen ja epäonnistuneen operaation ilmoitusten tulee erota toisistaan:
-
-  HUOM: Vaikka käsittelet poikkeuksen koodissa, virheilmoitus tulostuu silti konsoliin.
-
-  Muokkasin viestiä näytettäväksi setErrorMessage-viestillä catchissä niin, että päivitys- ja poistoprosessi
-  näyttää viestin näytöllä heti, kun se havaitsee virheitä. ===  Update ve delete islemine hatalari yakaladigi
-  anda eranda mesaj göstermesi icin catch icerisinde setErrorMessage ile göruntulenecek mesaji duzenledim.
-*/
-
+/* eslint-disable react/prop-types */
 import { useState, useEffect } from "react";
 import personService from "./services/persons";
 
@@ -27,9 +12,12 @@ const App = () => {
   const [errorMessage, setErrorMessage] = useState(null)
 
   useEffect(() => {
-    personService.getAll().then((initialPersons) => {
-      setPersons(initialPersons);
-    });
+    personService.getAll()
+      .then((initialPersons) => {
+        if (Array.isArray(initialPersons)) {
+          setPersons(initialPersons);
+        }
+      })
   }, []);
 
   const AddPerson = (event) => {
@@ -68,13 +56,7 @@ const App = () => {
             setNewName("");
             setNewNumber("");
           })
-
-          /*
-            Jos update-prosessin aikana vastaanotetaan virhe, catch-koodi suoritetaan ja määrittämäni irheviesti
-            ilmestyy näytölle. === update isleminde bir hata alinirsa catch icindeki kod calisacak ve ekranda
-            belirledigim hata mesaji görunecek.
-          */
-          .catch((error) => {
+          .catch(() => {
             setErrorMessage(
               `Information of ${isNameOnList.name} has already been removed from server`
             );
@@ -123,12 +105,7 @@ const App = () => {
           setErrorMessage(null)
         }, 5000)
       })
-      /*
-        Jos virheilmoitus vastaanotetaan delete-prosessin aikana, catch-koodi suoritetaan ja määrittämäni
-        virhesanoma ilmestyy näytölle. === delete isleminde bir hata alinirsa catch icindeki kod calisacak
-        ve ekranda belirledigim hata mesaji görunecek.
-      */
-      .catch((error) => {
+      .catch(() => {
         setErrorMessage(
           `Information of ${deleteThePerson.name} has already been removed from server`
         );
