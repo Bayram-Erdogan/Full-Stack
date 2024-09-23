@@ -1,0 +1,23 @@
+3.6: Telefon rehberi arka uç adımı 61
+
+    Yeni girdiler oluşturmak için hata işlemeyi uygulayın. İstek, aşağıdaki durumlarda başarılı olamaz:
+
+    İsim veya numara eksik
+    İsim telefon rehberinde zaten mevcut
+    Bu tür isteklere uygun durum koduyla yanıt verin ve ayrıca hatanın nedenini açıklayan bilgileri geri gönderin, örneğin:
+
+    { error: 'name must be unique' }
+
+*************************************************************************************************************************************************
+
+    *   Post isteginin icerisine bir if-else if blogu olusturdum.
+
+         if (!body.name || !body.number) {
+            return response.status(400).json({
+            error: 'name or number are missing '
+            })
+        } else if( persons.find(person => person.name === body.name)){
+            return response.status(400).json({
+            error: 'name must be unique'
+            })
+        }
