@@ -1,0 +1,21 @@
+3.8*: Telefon rehberi arka uç adımı 8
+
+    Morgan'ı HTTP POST isteklerinde gönderilen verileri de gösterecek şekilde yapılandırın:
+
+    Konsolda bile veri kaydı yapmanın tehlikeli olabileceğini unutmayın çünkü hassas veriler içerebilir ve yerel gizlilik yasalarını
+    (örneğin AB'de GDPR) veya iş standartlarını ihlal edebilir. Bu alıştırmada gizlilik sorunları hakkında endişelenmenize gerek yok,
+    ancak pratikte hassas verileri kaydetmemeye çalışın.
+
+    Çözüm çok fazla kod gerektirmemesine rağmen, bu egzersiz oldukça zorlayıcı olabilir.
+
+    Bu egzersiz birkaç farklı şekilde tamamlanabilir. Olası çözümlerden biri şu iki tekniği kullanır:
+
+    yeni tokenler oluşturma
+    JSON.dizeleştirme
+
+*************************************************************************************************************************************************
+
+    *
+
+        morgan.token('body', (req) => JSON.stringify(req.body));    ==> token olusturdum
+        const logsData = ':method :url :status :response-time ms - :res[content-length] :body'; ==> logsData icine body'i de ekledim
