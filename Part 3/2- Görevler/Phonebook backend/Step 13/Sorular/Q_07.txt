@@ -1,0 +1,19 @@
+3.7: Telefon rehberi arka uç adımı 7
+
+    Günlük kaydı için morgan ara yazılımını uygulamanıza ekleyin . Tiny yapılandırmasına göre mesajları konsolunuza kaydedecek şekilde
+    yapılandırın .
+
+    Morgan'ın dokümantasyonu en iyisi değil ve onu doğru şekilde nasıl yapılandıracağınızı bulmak için biraz zaman harcamanız gerekebilir.
+    Ancak dünyadaki dokümantasyonların çoğu aynı kategoriye girer, bu yüzden her durumda şifreli dokümantasyonu çözmeyi ve yorumlamayı
+    öğrenmek iyidir.
+
+    Morgan, diğer tüm kütüphaneler gibi npm install komutuyla kurulur . Morgan'ı kullanıma almak, app.use komutunu kullanarak diğer herhangi
+    bir ara yazılımı yapılandırmakla aynı şekilde gerçekleşir.
+
+*************************************************************************************************************************************************
+
+    *   npm install morgan ile morgan yukledim.
+
+    *   const morgan = require('morgan'); uygulamama dahil ettim.
+
+    *   app.use(morgan('tiny')); Morgan'ı Tiny formatında yapılandırarak kullandim
