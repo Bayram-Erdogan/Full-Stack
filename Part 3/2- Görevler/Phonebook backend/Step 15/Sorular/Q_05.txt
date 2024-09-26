@@ -1,0 +1,24 @@
+3.5: Telefon rehberi arka uç adımı 5
+
+    Yeni telefon rehberi girişlerinin http://localhost:3001/api/persons adresine HTTP POST istekleri yapılarak eklenebilmesi için arka ucu
+    genişletin .
+
+    Math.random fonksiyonu ile telefon rehberi girişi için yeni bir kimlik oluşturun . Rastgele değerleriniz için yeterince büyük bir aralık
+    kullanın, böylece yinelenen kimlikler oluşturma olasılığı düşük olur.
+
+*************************************************************************************************************************************************
+
+    *   Post islemi icin yeni bir http istegi olusturdum
+
+        app.post('/api/persons', (request, response) => {
+            const body = request.body;
+
+            const person = {
+                id: generateId(),
+                name: body.name,
+                number: body.number,
+            };
+
+            persons = persons.concat(person);
+            response.json(person);
+        });
