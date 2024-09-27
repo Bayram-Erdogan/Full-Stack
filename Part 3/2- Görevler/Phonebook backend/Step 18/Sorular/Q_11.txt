@@ -1,0 +1,35 @@
+3.11 Tam Yığın Telefon Rehberi
+
+    Ön ucunuzun üretim sürümünü oluşturun ve bu bölümde tanıtılan yöntemi kullanarak bunu İnternet uygulamanıza ekleyin.
+
+    Not: Eğer Render kullanıyorsanız, arka planda git tarafından dist dizininin yok sayılmadığından emin olun.
+
+    Ayrıca, ön yüzün hala yerel olarak çalıştığından ( npm run dev komutuyla başlatıldığında geliştirme modunda ) emin olun.
+
+    Uygulamanın çalışmasında sorun yaşıyorsanız dizin yapınızın örnek uygulama ile eşleştiğinden emin olun .
+
+*************************************************************************************************************************************************
+
+    *   Sonra \\Yeniden REACT\Part 02\Tasks\2-The Phonebook dosyasinin 12. ödevine giderek projenin kök yapisinda npm run build
+        kodunu calistirdim. Böylece ön yuz uretim yapisini ayarlamis oldum ve projeye Dist klasöru eklendi.
+
+    *   Sonra ise static ucu arka ucdan sunmak icin bir ust adimda olusturdugum Dist klasörunu arka ucun kökune yapistirdim. ve
+        index.js dosyasina app.use(express.static('dist')) satirini ekledim.
+
+    *   Sonra \\Yeniden REACT\Part 02\Tasks\2-The Phonebook dosyasinin 12. ödevine giderek Services/persons.js de baseUrl'i
+        const baseUrl = '/api/persons' ile guncelledim.
+
+        Artik arka uc uzerinden http://localhost:3001/ ile ön ucun sunmus oldugu web ara yuze
+        http://localhost:3001/api/persons ile de arka ucun sunmus oldugu json ara yuzune gidebiliriz.
+
+    *   Ön ucun tek basina calismasi icin ön ucda bulunan vite.config.js dosyasina asagidaki eklentiyi ekledim.
+
+
+        server: {
+            proxy: {
+            '/api': {
+                target: 'http://localhost:3001',
+                changeOrigin: true,
+            },
+            }
+        },
