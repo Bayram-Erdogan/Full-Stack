@@ -1,0 +1,27 @@
+3.15: Telefon rehberi veritabanı, adım 3
+
+    Telefon rehberi kayıtlarının silinmesinin veritabanına yansımasını sağlayacak şekilde arka planı değiştirin.
+
+    Değişiklikleri yaptıktan sonra ön yüzün hala çalıştığını doğrulayın.
+
+*************************************************************************************************************************************************
+
+*   Bir kisiyi listeden silmek icin delete path'ini guncelledim.
+
+    Eski hali
+
+app.delete('/api/persons/:id', (request, response) => {
+    const id = request.params.id
+    persons = persons.filter(person => person.id !== id)
+    response.status(204).end()
+  })
+
+    Yeni hali
+
+app.delete('/api/persons/:id', (request, response) => {
+  Person.findByIdAndDelete(request.params.id)
+  .then(result => {
+    response.status(204).end()
+  })
+  .catch(error => next(error))
+  })

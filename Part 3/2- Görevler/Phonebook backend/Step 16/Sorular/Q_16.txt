@@ -1,0 +1,49 @@
+3.16: Telefon rehberi veritabanı, adım 4
+
+    Uygulamanın hata işlemesini yeni bir hata işleme ara yazılımına taşıyın.
+
+*************************************************************************************************************************************************
+
+*   Hata isleme islemini ara yazilima cikarmak icin bir kisiyi getirme ve sile islemlerinde guncelleme yaptim. Silme islemine sadece next
+    parametresi eklendi
+
+    Eski hali
+
+app.get('/api/persons/:id', (request, response) => {        ==> next parametresi eklendi blok icinde ise then ve catch bloklar eklendi.
+    const id = request.params.id
+    const person = persons.find(person => person.id === id)
+
+    if (person) {
+      response.json(person)
+    } else {
+      response.status(404).end()
+    }
+  })
+
+    Yeni hali
+
+    app.get('/api/persons/:id', (request, response, next) => {
+  Person.findById(request.params.id)
+  .then(person => {
+    if (person) {
+      response.json(person)
+    } else {
+      response.status(404).end()
+    }
+  })
+  .catch(error => next(error))
+  })
+
+*   Sonra ise hata isleme icin ara yazilim olusturuldu. ve Port taniminin uzerine eklendi.
+
+const errorHandler = (error, request, response, next) => {
+  console.error(error.message)
+
+  if (error.name === 'CastError') {
+    return response.status(400).send({ error: 'malformatted id' })
+  }
+
+  next(error)
+}
+
+app.use(errorHandler)
