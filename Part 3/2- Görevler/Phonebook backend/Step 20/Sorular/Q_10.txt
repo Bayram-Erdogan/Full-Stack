@@ -1,0 +1,19 @@
+3.10 Telefon rehberi arka uç adım 10
+
+    Arka ucu internete, örneğin Fly.io veya Render'a dağıtın.
+
+    Dağıtılan arka ucu bir tarayıcı ve Postman veya VS Code REST istemcisiyle test ederek çalıştığından emin olun.
+
+    İPUCU: Uygulamanızı İnternet'e dağıttığınızda, en azından başlangıçta uygulamanın günlüklerini HER ZAMAN takip etmenizde fayda vardır .
+
+    Deponuzun kökünde bir README.md dosyası oluşturun ve çevrimiçi uygulamanıza bir bağlantı ekleyin.
+
+    NOT : Söylendiği gibi, BACKEND'i bulut hizmetine dağıtmalısınız. Fly.io kullanıyorsanız komutlar, backend'in kök dizininde (yani, backend
+    package.json'ın bulunduğu dizinde) çalıştırılmalıdır. Render kullanıyorsanız, backend deponuzun kökünde olmalıdır.
+
+    Bu bölümün hiçbir aşamasında ön ucu doğrudan dağıtmayacaksınız. Bu, tüm bölüm boyunca dağıtılan sadece arka uç deposudur, başka bir şey değil.
+
+*************************************************************************************************************************************************
+
+    *   Bu dosya yerine Phonebook Backend'i render da deploy ettim. (burada step step gidiyorum. Phonebook Backend ise tek part)
+

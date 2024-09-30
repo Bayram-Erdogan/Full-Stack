@@ -1,0 +1,117 @@
+3.12: Komut satırı veritabanı
+
+    MongoDB Atlas ile telefon rehberi uygulaması için bulut tabanlı bir MongoDB veritabanı oluşturun.
+
+    Telefon rehberine kayıt eklemek ve telefon rehberinde bulunan tüm kayıtları listelemek için kullanılabilecek bir mongo.js dosyasını proje dizininde
+    oluşturun .
+
+    Not: GitHub'a gönderdiğiniz ve commitlediğiniz dosyaya şifrenizi eklemeyin!
+
+    Uygulama aşağıdaki gibi çalışmalıdır. Programı üç komut satırı argümanı (ilki paroladır) geçirerek kullanırsınız, örneğin:
+
+    node mongo.js yourpassword Anna 040-1234556
+
+    Sonuç olarak uygulama şunu yazdıracaktır:
+
+    added Anna number 040-1234556 to phonebook
+
+    Telefon rehberine yeni giriş veritabanına kaydedilecektir. Adın boşluk karakterleri içermesi durumunda tırnak işaretleri içine alınması
+    gerektiğini unutmayın:
+
+    node mongo.js yourpassword "Arto Vihavainen" 045-1232456
+
+    Eğer programa sadece şifre parametresi verilmişse, yani bu şekilde çağrılırsa:
+
+    node mongo.js yourpassword
+
+    Daha sonra program telefon rehberindeki tüm kayıtları görüntülemelidir:
+
+    telefon rehberi:
+    Anna 040-1234556
+    Arto Vihavainen 045-1232456
+    Ada Lovelace 040-1231236
+
+
+    Komut satırı parametrelerini process.argv değişkeninden alabilirsiniz .
+
+    Not: Bağlantıyı yanlış yerden kapatmayın . Örneğin aşağıdaki kod çalışmayacaktır:
+
+    Person
+    .find({})
+    .then(persons=> {
+        // ...
+    })
+
+    mongoose.connection.close()
+
+    Yukarıdaki kodda mongoose.connection.close() komutu Person.find işlemi başlatıldıktan hemen sonra yürütülecektir . Bu, veritabanı bağlantısının
+    hemen kapatılacağı ve yürütmenin Person.find işleminin bittiği ve geri çağırma fonksiyonunun çağrıldığı noktaya asla ulaşmayacağı anlamına gelir.
+
+    Veritabanı bağlantısını kapatmak için doğru yer geri çağırma fonksiyonunun sonudur:
+
+    Person
+    .find({})
+    .then(persons=> {
+        // ...
+        mongoose.connection.close()
+    })
+
+    Not: Eğer Person adında bir model tanımlarsanız , mongoose ilişkili koleksiyonu otomatik olarak people olarak adlandıracaktır.
+
+*************************************************************************************************************************************************
+
+    *   npm install mongoose ile uygulamama mongoose yukledim.
+
+    *   Projemin kökunde mongo.js isimli bir dosya olusturdum. Ve bu dosyaya asagidaki kodu ekledim.
+
+const mongoose = require('mongoose')            ==> Bu satırda, mongoose kütüphanesi projeye dahil ediliyor.
+
+if (process.argv.length<3) {                    ==> komut satırından girilen argümanların sayısını kontrol eder. Parola verilmediğinde bu koşul
+                                                    sağlanır ve program çalışmaz.
+  console.log('give password as argument')
+  process.exit(1)
+}
+
+const password = process.argv[3]                ==> omut satırından girilen üçüncü argüman (ilk iki argüman, Node.js ve dosya yolu bilgisi olduğu
+                                                    için) parola olarak alınıyor ve password değişkenine atanıyor.
+const name = process.argv[4]
+const number = process.argv[5]
+const url =
+  `mongodb+srv://Bayram:${password}@phonebook.whfs0.mongodb.net/phonebookApp?retryWrites=true&w=majority&appName=Phonebook`     ==> Bu satırda,
+                                                                                MongoDB veritabanına bağlanmak için kullanılacak bağlantı URL'si
+                                                                                oluşturuluyor. fullstack kullanıcı adı ile birlikte, girilen parola
+                                                                                URL'ye ekleniyor.
+
+mongoose.set('strictQuery',false)       ==> Mongoose'un sorgulama davranışını ayarlayan bir komut. Burada, strictQuery özelliği kapatılıyor. Bu,
+                                            gelecekteki sorgu filtreleme yapısında daha esnek bir kullanım sağlar.
+mongoose.connect(url)                   ==> Bu satırda, oluşturulan url kullanılarak MongoDB veritabanına bağlanılıyor.
+
+const personSchema = new mongoose.Schema({  ==> Bu satırda, Mongoose şeması oluşturuluyor. personSchema, bir kisinin nasıl bir yapıya sahip olacağını
+                                                tanımlar:
+
+  name: String,     ==> name: Bir String türünde olacak, notun içeriğini tutacak
+  number: String,   ==> number: Bir String türünde olacak, notun içeriğini tutacak
+})
+
+const Person = mongoose.model('Person', personSchema)   ==> Person adında bir model oluşturuluyor. Bu model, MongoDB veritabanındaki belgelerle
+                                                            (documents) etkileşim kurmak için kullanılıyor. Model, daha önce tanımlanan personSchema
+                                                            şemasına dayanıyor.
+
+const person = new Person({     ==> Bu satırda yeni bir kisi (document) oluşturuluyor. name alanı name olarak ayarlanmış ve number alanı number olarak
+                                    ayarlanmış. Yani bu kisinin içeriği isim ve numara olduğu belirtiliyor.
+  name: name,
+  number: number,
+})
+
+ person.save().then(result => {         ==> Burada, yeni oluşturulan kisi veritabanına kaydediliyor (save metodu ile). Kayıt işlemi başarılı olursa,
+                                            "added ${name} number ${number} to phonebook" mesajı konsola yazdırılıyor.
+   console.log(`added ${name} number ${number} to phonebook`)
+ })
+
+Person.find({}).then(result => {
+    console.log("phonebook:")
+    result.forEach(person => {
+      console.log(person.name, person.number)
+    })
+    mongoose.connection.close()
+  })
