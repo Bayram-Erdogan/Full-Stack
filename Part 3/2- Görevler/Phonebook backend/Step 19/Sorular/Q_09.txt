@@ -1,0 +1,21 @@
+3.9 Telefon rehberi arka uç adımı 9
+
+    Önceki bölümdeki alıştırmalardan telefon rehberi ön ucuyla arka ucu çalışır hale getirin. Telefon numaralarında değişiklik yapma
+    işlevini henüz uygulamayın, bu 3.17 alıştırmasında uygulanacaktır.
+
+    Muhtemelen ön uçta, en azından arka uç URL'lerinde bazı küçük değişiklikler yapmanız gerekecektir. Geliştirici konsolunu
+    tarayıcınızda açık tutmayı unutmayın. Bazı HTTP istekleri başarısız olursa, Network -sekmesinden ne olduğunu kontrol etmelisiniz.
+    Arka ucun konsolunu da takip edin. Önceki alıştırmayı yapmadıysanız, istek verilerini veya request.body'yi POST isteklerinden
+    sorumlu olay işleyicisindeki konsola yazdırmaya değer .
+
+*************************************************************************************************************************************************
+
+    *   Ilk olarak \\Yeniden REACT\Part 02\Tasks\2-The Phonebook dosyasinin 12. ödevine giderek Services/persons.js dosyasina giderek
+        baseUrl'i 'http://localhost:3001/api/persons' ile guncelledim.
+
+    *   Sonra arka ucta (yani burada) terminalde npm install cors ile cors'u yukledim.
+
+    *   Sonra index.js'e asagidaki satirlari ekledim.
+
+            const cors = require('cors')
+            app.use(cors())

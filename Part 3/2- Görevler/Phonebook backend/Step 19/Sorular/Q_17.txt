@@ -1,0 +1,27 @@
+3.17*: Telefon rehberi veritabanı, adım 5
+
+    Kullanıcı, telefon rehberinde adı bulunan bir kişi için yeni bir telefon rehberi girişi oluşturmaya çalışırsa, ön uç, girişin
+    benzersiz URL'sine bir HTTP PUT isteği yaparak mevcut girişin telefon numarasını güncellemeye çalışacaktır.
+
+    Bu isteği destekleyecek şekilde arka ucu değiştirin.
+
+    Değişikliklerinizi yaptıktan sonra ön yüzün çalıştığını doğrulayın.
+
+*************************************************************************************************************************************************
+
+*   Kullanicin yapmis oldugu degisiklikler icin put yöntemiyle yeni bir istek olusturdum.
+
+    app.put('/api/persons/:id', (request, response, next) => {
+    const body = request.body
+
+    const person = {
+      name: body.name,
+      number: body.number,
+    }
+
+    Person.findByIdAndUpdate(request.params.id, person)
+      .then(updatedPerson => {
+        response.json(updatedPerson)
+      })
+      .catch(error => next(error))
+  })

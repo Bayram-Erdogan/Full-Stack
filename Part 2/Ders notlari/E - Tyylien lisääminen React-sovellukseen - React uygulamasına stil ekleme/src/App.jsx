@@ -122,7 +122,6 @@ export default App
 */
 
 import { useState, useEffect } from 'react'
-import axios from 'axios'
 import Note from './components/Note'
 import noteService from './services/notes'
 
@@ -166,7 +165,7 @@ const App = () => {
         .then(returnedNote => {
         setNotes(notes.map(note => note.id !== id ? note : returnedNote))
       })
-      .catch(error => {
+      .catch(() => {
 
         setErrorMessage(
           `Note '${note.content}' was already removed from server`

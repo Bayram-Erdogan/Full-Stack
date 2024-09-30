@@ -1,0 +1,115 @@
+3.19*: Telefon rehberi veritabanı, adım 7
+
+    Doğrulamayı, veritabanında saklanan adın en az üç karakter uzunluğunda olması gerekecek şekilde genişletin.
+
+
+    Bir doğrulama hatası oluştuğunda bir tür hata mesajı görüntüleyecek şekilde ön ucu genişletin. Hata işleme, aşağıda gösterildiği
+    gibi bir yakalama bloğu eklenerek uygulanabilir :
+
+    personService
+        .create({ ... })
+        .then(createdPerson => {
+        // ...
+        })
+        .catch(error => {
+        // this is the way to access the error message
+        console.log(error.response.data.error)
+        })
+
+    Mongoose tarafından döndürülen varsayılan hata mesajlarını, olması gerektiği kadar okunabilir olmasalar bile, görüntüleyebilirsiniz:
+
+    Not: Güncelleme işlemlerinde mongoose doğrulayıcıları varsayılan olarak kapalıdır. Bunları nasıl etkinleştireceğinizi belirlemek için
+    belgeleri (https://mongoosejs.com/docs/validation.html) okuyun.
+
+*************************************************************************************************************************************************
+
+*   Ilk olarak models/person.js icindeki personShemayi guncelledim. Böylece verilerin mongoose'a göre hangi sekillerde olmasi gerektigini
+    belirlemis oldum.
+
+    Yeni hali
+
+    const personSchema = new mongoose.Schema({
+        name: { type: String, minLength: 3 },
+        number: { type: String }
+    })
+
+*   Daha sonra ise index.js islemi icinde post yöntemini guncelledim parametre olarak next ve blok icine catch ekledim.
+
+    Yeni hali
+
+    app.post('/api/persons', (request, response, next) => {
+        const body = request.body;
+
+        const person = new Person({
+            name: body.name,
+            number: body.number,
+        });
+
+        person.save().then(savedPerson =>{
+            response.json(savedPerson)
+            })
+        .catch(error => next(error))
+    });
+
+*   Sonra ise dogrulama icin hata isleyicisini (errorHandler) guncelledim.
+
+    Yeni hali
+
+    const errorHandler = (error, request, response, next) => {
+        console.error(error.message)
+
+        if (error.name === 'CastError') {
+            return response.status(400).send({ error: 'malformatted id' })
+
+        } else if (error.name === 'ValidationError') {                  ==> else if blogu eklendi
+            return response.status(400).json({ error: error.message })
+        }
+
+        next(error)
+    }
+
+*   Sonra ise put yöntemini guncelldim.
+
+    Yeni hali
+
+    app.put('/api/persons/:id', (request, response, next) => {
+        const {name, number} = request.body                     ==> Bu satiri eklendi.
+
+        Person.findByIdAndUpdate(
+        request.params.id,
+        {name, number},                                         ==> Bu satiri eklendi.
+        { new: true, runValidators: true, context: 'query' }    ==> Bu satiri eklendi.
+        )
+        .then(updatedPerson => {
+            response.json(updatedPerson)
+        })
+        .catch(error => next(error))
+    })
+
+*   Son olarak da Ön uc da addPerson fonkisiyonun if-else blogunun else blogu icerisindeki PersonService catch blogu ekledim.
+    Böylece ön ucdaki tarayicidan kullanicya hata mesaji gösterilir oldu.
+
+    personService
+        .create(addNewPerson)
+        .then(returnedPerson => {
+          setPersons(persons.concat(returnedPerson))
+
+          setErrorMessage(
+            `Added ${returnedPerson.name}`
+          )
+
+          setTimeout(() => {
+            setErrorMessage(null)
+          }, 5000)
+
+          setNewName('')
+          setNewNumber('')
+      })
+      .catch(error => {                                         ==> Bu blok eklendi.
+        setErrorMessage(`Error: ${error.response.data.error}`)
+
+        setTimeout(() => {
+          setErrorMessage(null)
+        }, 5000)
+      })
+    }
