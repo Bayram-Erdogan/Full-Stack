@@ -1,0 +1,19 @@
+3.20*: Telefon rehberi veritabanı, adım 8
+
+    Telefon numaralarının doğru biçimde olduğundan emin olmak için telefon rehberi uygulamanıza doğrulama ekleyin. Bir telefon numarası
+    şu şekilde olmalıdır:
+
+        8 veya daha fazla uzunluğa sahip olmak
+        - ile ayrılmış iki parçadan oluşur, ilk parça iki veya üç sayıdan oluşur ve ikinci parça da sayılardan oluşur
+
+        örn. 09-1234556 ve 040-22334455 geçerli telefon numaralarıdır
+        örneğin 1234556, 1-22334455 ve 10-22-334455 geçersizdir
+
+    Doğrulamanın ikinci kısmını uygulamak için Özel bir doğrulayıcı (https://mongoosejs.com/docs/validation.html#custom-validators)
+    kullanın.
+
+    Bir HTTP POST isteği geçersiz telefon numarasına sahip bir kişiyi eklemeye çalışırsa, sunucu uygun bir durum kodu ve hata mesajıyla
+    yanıt vermelidir.
+
+*************************************************************************************************************************************************
+

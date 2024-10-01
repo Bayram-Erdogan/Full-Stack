@@ -1,0 +1,22 @@
+3.3: Telefon rehberi arka uç adımı 3
+
+    Tek bir telefon rehberi girişi için bilgileri görüntüleme işlevini uygulayın. 5 kimlikli bir kişi için verileri almak için
+    URL http://localhost:3001/api/persons/5 olmalıdır
+
+    Belirtilen kimliğe ait bir giriş bulunamazsa, sunucunun uygun durum koduyla yanıt vermesi gerekir.
+
+*************************************************************************************************************************************************
+
+    *   Tek bir kisiyi almak icin bir http istegi olusturdum
+
+          app.get('/api/persons/:id', (request, response) => {
+            const id = request.params.id
+            const note = persons.find(person => person.id === id)
+
+
+            if (personn) {
+            response.json(note)
+            } else {
+            response.status(404).end()
+            }
+        })

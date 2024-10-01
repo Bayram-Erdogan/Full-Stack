@@ -1,0 +1,32 @@
+3.18*: Telefon rehberi veritabanı adım 6
+
+    Ayrıca api/persons/:id ve info rotalarının işlenmesini veritabanını kullanacak şekilde güncelleyin ve bunların doğrudan tarayıcı,
+    Postman veya VS Code REST istemcisiyle çalıştığını doğrulayın.
+
+*************************************************************************************************************************************************
+
+*   info yoluna yapilan istegi guncelledim.
+
+    Eskisi
+
+app.get('/info', (request, response) => {
+  const date= new Date().toString();
+    response.send(`
+      <p>Phonebook has info for ${persons.length} people</p>
+      <p> ${date}</p>
+      `)
+  })
+
+    Yenisi
+
+    app.get('/info', (request, response, next) => {
+    Person.countDocuments({})
+      .then(count => {
+        const currentTime = new Date();
+        response.send(`
+          <p>Phonebook has info for ${count} people</p>
+          <p>${currentTime}</p>
+        `);
+      })
+      .catch(error => next(error));
+  });
