@@ -1,0 +1,22 @@
+3.2: Telefon rehberi arka uç adımı 2
+
+  http://localhost:3001/info adresinde aşağıdaki gibi bir sayfa oluşturun:
+
+  Sayfada talebin alındığı saat ve talebin işleme alındığı anda telefon rehberinde kaç kayıt bulunduğu gösterilmelidir.
+
+  Bir Express uygulama rotasında yalnızca bir response.send() ifadesi olabilir. response.send() kullanarak istemciye bir yanıt
+  gönderdiğinizde, istek-yanıt döngüsü tamamlanır ve başka bir yanıt gönderilemez.
+
+  Çıktıda satır aralığı eklemek için <br/>etiketi kullanın veya ifadeleri <p>etiketlerle sarın.
+
+*************************************************************************************************************************************************
+
+  * info uzantisi icin bir istek olusturdum
+
+    app.get('/info', (request, response) => {
+    const date= new Date().toString();
+      response.send(`
+        <p>Phonebook has info for ${persons.length} people</p>
+        <p> ${date}</p>
+        `)
+    })

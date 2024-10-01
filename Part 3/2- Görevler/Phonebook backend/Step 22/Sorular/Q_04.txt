@@ -1,0 +1,16 @@
+3.4: Telefon rehberi arka uç adımı 4
+
+    Tek bir telefon rehberi girişinin benzersiz URL'sine bir HTTP DELETE isteği göndererek o girişi silmeyi mümkün kılan işlevselliği uygulayın.
+
+    İşlevselliğinizin Postman veya Visual Studio Code REST istemcisiyle çalıştığını test edin.
+
+*************************************************************************************************************************************************
+
+    *   Tek bir kisiyi silmek icin bir http istegi olusturdum
+
+            app.delete('/api/persons/:id', (request, response) => {
+                const id = request.params.id
+                persons = persons.filter(person => person.id !== id)
+                response.status(204).end()
+            })
+

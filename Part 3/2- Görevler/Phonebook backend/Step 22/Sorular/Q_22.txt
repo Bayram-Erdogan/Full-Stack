@@ -1,0 +1,8 @@
+3.22: Lint yapılandırması
+
+    ESlint'i uygulamanıza ekleyin ve tüm uyarıları düzeltin.
+
+    Bu, kursun bu bölümünün son egzersiziydi. Kodunuzu GitHub'a gönderme ve tüm tamamlanmış egzersizlerinizi egzersiz gönderim
+    sistemine işaretleme zamanı
+
+*************************************************************************************************************************************************

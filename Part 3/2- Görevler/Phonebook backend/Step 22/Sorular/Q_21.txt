@@ -1,0 +1,17 @@
+3.21 Veritabanı arka ucunun üretime dağıtılması
+
+    Ön ucun yeni bir üretim yapısını oluşturarak ve bunu arka uç deposuna kopyalayarak uygulamanın yeni bir "tam yığın" sürümünü
+    oluşturun. http://localhost:3001/ adresinden tüm uygulamayı kullanarak her şeyin yerel olarak çalıştığını doğrulayın .
+
+    En son sürümü Fly.io/Render'a yükleyin ve her şeyin orada da çalıştığını doğrulayın.
+
+    NOT : BACKEND'i bulut hizmetine dağıtmalısınız. Fly.io kullanıyorsanız komutlar arka ucun kök dizininde (yani arka uç
+    package.json'ın bulunduğu dizinde) çalıştırılmalıdır. Render kullanıyorsanız arka uç deponuzun kökünde olmalıdır.
+
+    Bu bölümün hiçbir aşamasında ön ucu doğrudan dağıtmayacaksınız. Bu, tüm bölüm boyunca dağıtılan sadece arka uç deposudur,
+    başka bir şey değil.
+
+*************************************************************************************************************************************************
+
+*   Bunun icin ön ucta yer alan (\\Yeniden REACT\Part 02\Tasks\2-The Phonebook\thePhoneBook_12) dosyasinda Dist klasörunu sildim ve
+    terminalden npm run build komutunu calistirarak yeni bir Dist klasöru olusturdum. Sonra bunu kopyalayarak backend klasörune yapistrdim.
