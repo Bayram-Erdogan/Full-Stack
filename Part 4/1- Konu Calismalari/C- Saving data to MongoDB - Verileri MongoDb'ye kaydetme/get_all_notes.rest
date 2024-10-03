@@ -1,0 +1,2 @@
+// VSC REST EKLENTISI ICIN OLUSTURULDU. Database'deki notlari almak icin kullaniliyor.
+GET http://localhost:3001/api/notes
