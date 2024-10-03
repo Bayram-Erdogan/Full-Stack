@@ -1,0 +1,2 @@
+// VSC REST EKLENTISI ICIN OLUSTURULDU
+GET http://localhost:3001/api/notes
