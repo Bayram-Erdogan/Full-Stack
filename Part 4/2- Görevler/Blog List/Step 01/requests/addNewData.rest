@@ -1,0 +1,9 @@
+POST http://localhost:3003/api/blogs
+Content-Type: application/json
+
+{
+  "title": "Understanding JavaScript Closures",
+  "author": "John Doe",
+  "url": "https://example.com/javascript-closures",
+  "likes": 42
+}
