@@ -1,0 +1,27 @@
+// Database'e yeni bir post islemi gerceklestirmek icin olusturuldu. Böylece database'e buradan post islemi yapabiliriz.
+POST http://localhost:3001/api/notes
+Content-Type: application/json
+
+{
+    "content":"Deneme deneme deneme",
+    "important":true
+}
+
+###
+POST http://localhost:3001/api/notes
+Content-Type: application/json
+
+{
+    "content":"Deneme 123",
+    "important":true
+}
+###
+POST http://localhost:3001/api/notes
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ikt1bGxhbmljaSAyIiwiaWQiOiI2NjU4MjI0MWY0NzZlNmY3OGI0MDEwNDUiLCJpYXQiOjE3MTcwNTE5ODJ9.McQwj1UsQH8rjKTlGxcGq3ulRcQj_k9I0u0o_UYJ5dU
+
+{
+    "content": "Kullanici 2 notu 2",
+    "important": false,
+    "userId": "66582241f476e6f78b401045"
+}

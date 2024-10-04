@@ -1,0 +1,2 @@
+// Database'den id'si verilen notun silinmesi icin olusturuldu. Böyelece verilen id'ye sahip olan not databasede silinir.
+DELETE http://localhost:3001/api/notes/66459bb3e28a1ef13c472eb7
