@@ -1,0 +1,38 @@
+4.4: Yardımcı Fonksiyonlar ve Birim Testleri, adım 2
+
+    Bir blog yazısı listesini parametre olarak alan yeni bir totalLikes işlevi tanımlayın . İşlev, tüm blog yazılarındaki beğenilerin toplamını
+    döndürür .
+
+    Fonksiyon için uygun testleri yazın. Test raporu çıktısının güzel bir şekilde gruplandırılması için testleri bir describe bloğunun içine
+    koymanız önerilir :
+
+    Fonksiyon için test girdilerini tanımlamak şu şekilde yapılabilir:
+
+describe('total likes', () => {
+  const listWithOneBlog = [
+    {
+      _id: '5a422aa71b54a676234d17f8',
+      title: 'Go To Statement Considered Harmful',
+      author: 'Edsger W. Dijkstra',
+      url: 'https://homepages.cwi.nl/~storm/teaching/reader/Dijkstra68.pdf',
+      likes: 5,
+      __v: 0
+    }
+  ]
+
+  test('when list has only one blog, equals the likes of that', () => {
+    const result = listHelper.totalLikes(listWithOneBlog)
+    assert.strictEqual(result, 5)
+  })
+})
+
+    Eğer kendi blog test giriş listenizi tanımlamak çok fazla iş ise, burada bulunan hazır listeyi kullanabilirsiniz .
+
+    Test yazarken sorunlarla karşılaşmanız kaçınılmazdır. 3. bölümde hata ayıklama hakkında öğrendiğimiz şeyleri hatırlayın. Test yürütme
+    sırasında bile console.log ile konsola bir şeyler yazdırabilirsiniz.
+
+**************************************************************************************************************************************************
+1-  Ilk olarak utils icindeki list_helper.js de yeni bir fonksiyon tanimladim. Bu fonksiyon for döngusunu kullanarak blogs icindeki likes
+    degerlerini alip total degiskenine ekliyor ve total degiskenini return ediyor.
+
+2-  Daha sonra tests klasöru icinde totalLikes isimli yeni bir test dosyasi olusturdum. Ve gerekli test kodumu yazdim.
