@@ -1,0 +1,11 @@
+4.10: Blog Listesi Testleri, adım 3
+
+    /api/blogs URL'sine bir HTTP POST isteği yapmanın yeni bir blog gönderisi oluşturmasını başarıyla doğrulayan bir test yazın. En azından,
+    sistemdeki toplam blog sayısının bir artırıldığını doğrulayın. Ayrıca blog gönderisinin içeriğinin veritabanına doğru şekilde kaydedildiğini
+    de doğrulayabilirsiniz.
+
+    Test tamamlandıktan sonra, promise'ler yerine async/await'i kullanacak şekilde işlemi yeniden düzenleyin.
+
+**************************************************************************************************************************************************
+
+1-  tests/blogs.test.js sayfasinda post islemi icin bir test olusturdum.
