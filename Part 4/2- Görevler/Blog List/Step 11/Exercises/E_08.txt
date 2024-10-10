@@ -1,0 +1,73 @@
+4.8: Blog Listesi Testleri, adım 1
+
+    /api/blogs URL'sine HTTP GET isteği yapan bir test yazmak için SuperTest kitaplığını kullanın . Blog listesi uygulamasının JSON biçiminde
+    doğru miktarda blog gönderisi döndürdüğünü doğrulayın.
+
+    Test tamamlandıktan sonra, yönlendirme işleyicisini, vaatler yerine async/await sözdizimini kullanacak şekilde yeniden düzenleyin.
+
+    Malzemede yapılan koda benzer değişiklikleri yapmanız gerekeceğini , örneğin ayrı veritabanları kullanan testler yazabilmeniz için test
+    ortamını tanımlamanız gerekeceğini unutmayın.
+
+    Not: Testlerinizi yazarken hepsini çalıştırmamak , sadece üzerinde çalıştıklarınızı çalıştırmak daha iyidir. Bu konuda daha fazla bilgiyi
+    burada bulabilirsiniz.
+
+**************************************************************************************************************************************************
+
+    1- ilk olarak test ortamim icin package.json da ki scripts dizi si icinde asagidaki degisikligi yaptim.
+
+        Eski hali:
+            "test": "node --test",
+            "start": "node index.js",
+            "dev": "nodemon index.js"
+        Yeni hali:
+            "start": "NODE_ENV=production node index.js",
+            "dev": "NODE_ENV=development nodemon index.js",
+            "test": "NODE_ENV=test node --test"
+
+    2-  Çapraz ortam paketini aşağıdaki komutla bir geliştirme bağımlılığı olarak yükledim.
+
+            npm install --save-dev cross-env
+
+    3-  Daha sonra package.json'da tanımlanan npm betiklerimizde çapraz ortam kitaplığını kullanmak icin tekrar duzenledim.
+
+        En yeni hali:
+            "start": "cross-env NODE_ENV=production node index.js",
+            "dev": "cross-env NODE_ENV=development nodemon index.js",
+            "test": "cross-env  NODE_ENV=test node --test"
+
+    4-  Projenin Fly.io/Render'da dagitimi yapildiginda her hangi bir sorun ile karsilasmamak icin cross-env 'yi yukledim
+
+            npm install cross-env
+
+    5-  Testlerimizi MongoDB de calistiracagiz bunun icin utils/config.js icinde  asagidaki degisiklige gittim. Bir ternary tanimlayarak
+        calistigim environment test ise  process.env.TEST_MONGODB_URI bu uri'yi degil ise process.env.MONGODB_URI bu uri'yi kullan demis oldum.
+
+        Eski hali:
+                require('dotenv').config()
+                const PORT = process.env.PORT
+                const MONGODB_URI = process.env.MONGODB_URI
+                module.exports = {
+                MONGODB_URI,
+                PORT
+                }
+        Yeni hali:
+                require('dotenv').config()
+                const PORT = process.env.PORT
+                const MONGODB_URI = process.env.NODE_ENV === 'test'
+                ? process.env.TEST_MONGODB_URI
+                : process.env.MONGODB_URI
+
+                module.exports = {
+                MONGODB_URI,
+                PORT
+                }
+
+    6-  env dosyasinda TEST_MONGODB_URI' yi olusturdum.
+
+    7-  Supertesti kurdum.
+
+            npm install --save-dev supertest
+
+    8-  tests kalsöru altinda blogs.tests.js adinda bir dosya olusturdum ve icine api testi icin gerekli kodlari yazdim.
+
+    9-  Daha sonra contollers/blogs.js'e giderek tum bloglari getiren rotayi async/await ile guncelledim.
