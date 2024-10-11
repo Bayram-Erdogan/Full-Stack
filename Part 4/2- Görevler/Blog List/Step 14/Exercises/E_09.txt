@@ -1,0 +1,14 @@
+4.9: Blog Listesi Testleri, adım 2
+
+    Blog yazılarının benzersiz tanımlayıcı özelliğinin id olarak adlandırıldığını doğrulayan bir test yazın, veritabanı varsayılan olarak
+    özelliği _id olarak adlandırır .
+
+    Kodun testi geçmesi için gerekli değişiklikleri yapın. 3. bölümde ele alınan toJSON yöntemi
+    (https://fullstackopen.com/en/part3/saving_data_to_mongo_db#connecting-the-backend-to-a-database) id parametresini tanımlamak için uygun
+    bir yerdir.
+
+**************************************************************************************************************************************************
+
+1-  ilk olarak models/blog.js dosyasinda semayi json'a cevirecek olan kodu yazdim.
+
+2-  Daha sonra tests/blogs.test.js sayfasinda veri tabaninda id özelliginin adlandirildigini dogrulamak icin test yazdim.

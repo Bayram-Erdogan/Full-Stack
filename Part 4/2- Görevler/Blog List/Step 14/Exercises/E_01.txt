@@ -1,0 +1,75 @@
+4.1 Blog Listesi, adım 1
+
+    Aşağıdaki başvuru gövdesini ve talimatları içeren bir e-posta aldığınızı hayal edin:
+
+const express = require('express')
+const app = express()
+const cors = require('cors')
+const mongoose = require('mongoose')
+
+const blogSchema = new mongoose.Schema({
+  title: String,
+  author: String,
+  url: String,
+  likes: Number
+})
+
+const Blog = mongoose.model('Blog', blogSchema)
+
+const mongoUrl = 'mongodb://localhost/bloglist'
+mongoose.connect(mongoUrl)
+
+app.use(cors())
+app.use(express.json())
+
+app.get('/api/blogs', (request, response) => {
+  Blog
+    .find({})
+    .then(blogs => {
+      response.json(blogs)
+    })
+})
+
+app.post('/api/blogs', (request, response) => {
+  const blog = new Blog(request.body)
+
+  blog
+    .save()
+    .then(result => {
+      response.status(201).json(result)
+    })
+})
+
+const PORT = 3003
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`)
+})
+
+    Uygulamayı çalışan bir npm projesine dönüştürün. Geliştirmenizi üretken tutmak için uygulamayı nodemon ile yürütülecek şekilde
+    yapılandırın. MongoDB Atlas ile uygulamanız için yeni bir veritabanı oluşturabilir veya önceki bölümdeki alıştırmalardan aynı
+    veritabanını kullanabilirsiniz.
+
+    Blogların Postman veya VS Code REST istemcisi ile listeye eklenebildiğini ve uygulamanın eklenen blogları doğru uç noktada
+    döndürdüğünü doğrulayın.
+
+**************************************************************************************************************************************************
+
+    1-  ilk olarak ..\\Yeniden REACT\Part 04\Tasks\Blog List\Step by step isimli bir klasör olusturdum ve klasöru vsc uzerinden actim.
+    2-  Daha sonra terminali acarak
+            npm init -y
+            npm install express cors mongoose nodemon --save
+        kodlarini yazarak ikisini tek seferde calistirdim.
+    3-  index.js adinda bir dosya olusturdum ve soruda verilen kodu index.js'e yapistirdim.
+    4-  Daha sonra npm install dotenv ile dotenv paketini uygulamama yukledim.
+    5-  Sonra ise projemin kök dizininde .env diye bir dosya olusturdum ve projemin url ile port'unu bu dosya icinde tanimladim.
+    6-  Daha sonra url ve port'a ulasmak icin index.js icinde require('dotenv').config() ile uygulamama tanittim.
+    7-  Sonra ise projemin kök dizininde .gitignore diye bir dosya olusturdum ve github'ima yuklemek istemedigim dosyalari bu dosya icinde
+        belirttim.
+    8-  Daha sonra ise index.js icinde mongoUrl ve port degiskenlerine degerlerini .env icinden cagirdim
+    9-  Bir sonraki adim olarak package.json icindeki scripts nesnesine
+            "start": "node index.js",
+            "dev": "nodemon index.js"
+        satirlarini yapistirdim.
+    10- VSC uzerinde post ve get all islemleri yapabilmek icin requests dosyasi olusturdum. Ve bu klasör icinde post ve get islemleri icin
+        dosyalar olusturdum. Sonra bu dosya uzerinde post ve get islemleri yaptim. VSC de islemlerin sonucu basarili olarak gerceklesti.
+    11- Son olarak node index.js ile kodumu calistirdim ve http://localhost:3003/api/blogs uzantisina giderek data'mi ekranda da gördum.

@@ -1,0 +1,74 @@
+Alıştırmalar 4.3.-4.7.
+
+    Blog listesinin describe bölümleriyle çalışmak için en uygun yardımcı fonksiyonlardan oluşan bir koleksiyon oluşturalım. Fonksiyonları
+    utils/list_helper.js adlı bir dosyaya oluşturun. Testlerinizi tests dizini altındaki uygun şekilde adlandırılmış bir test dosyasına yazın.
+
+4.3: Yardımcı Fonksiyonlar ve Birim Testleri, adım 1
+
+    Öncelikle, bir blog yazısı dizisini parametre olarak alan ve her zaman 1 değerini döndüren bir kukla fonksiyon tanımlayın. Bu noktada
+    list_helper.js dosyasının içeriği aşağıdaki gibi olmalıdır:
+
+    const dummy = (blogs) => {
+        // ...
+    }
+
+    module.exports = {
+        dummy
+    }
+
+    Test yapılandırmanızın aşağıdaki testle çalıştığını doğrulayın:
+
+    const { test, describe } = require('node:test')
+    const assert = require('node:assert')
+    const listHelper = require('../utils/list_helper')
+
+    test('dummy returns one', () => {
+        const blogs = []
+
+        const result = listHelper.dummy(blogs)
+        assert.strictEqual(result, 1)
+    })
+
+**************************************************************************************************************************************************
+
+1-  ilk olarak utils klasöru icerisinde list_helper.js diye bir dosya olusturdum. Ve icerisine soruda verilen kodu yapistirdim.
+
+            const dummy = (blogs) => {
+            // ...                      ==> dummy testinin gecmesi icin 1 geri döndrumesi lazim bu yuzden burayi return 1 olarak guncelledim.
+            }
+
+            module.exports = {
+            dummy
+            }
+
+    2-  Daha sonra test dosyalarim icin tests isminde bir klasör olusturdum. Ve dosya adi olarak dummy testi yapacagim icin dummy.test.js
+        yaptim. Ve icerisine soruda verilen kodu yapistirdim.
+
+            const { test, describe } = require('node:test')
+            const assert = require('node:assert')
+            const listHelper = require('../utils/list_helper')
+
+            test('dummy returns one', () => {
+            const blogs = []
+
+            const result = listHelper.dummy(blogs)
+            assert.strictEqual(result, 1)
+            })
+
+    3- Son olarak testlerimi calistirabilmek icin package.json dosyasina test betitigini duzenledim.
+
+            Eski hali:
+                 "scripts": {
+                    "test": "echo \"Error: no test specified\" && exit 1",
+                    "start": "node index.js",
+                    "dev": "nodemon index.js"
+                },
+
+            Yeni hali:
+                 "scripts": {
+                    "test": "node --test",      ==> Bu satir degisti.
+                    "start": "node index.js",
+                    "dev": "nodemon index.js"
+                },
+
+    4- Artik terminalde node --test ile kodlarimi test edebilirim.
