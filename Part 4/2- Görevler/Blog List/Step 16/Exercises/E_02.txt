@@ -1,0 +1,102 @@
+4.2 Blog Listesi, adım 2
+
+    Uygulamayı, ders materyalinin bu bölümünde daha önce gösterildiği gibi ayrı modüllere yeniden düzenleyin.
+
+    NB uygulamanızı küçük adımlarla yeniden düzenleyin ve yaptığınız her değişiklikten sonra çalıştığını doğrulayın. Birçok şeyi aynı anda
+    yeniden düzenleyerek bir "kısayol" almaya çalışırsanız, Murphy yasası devreye girecek ve uygulamanızda bir şeylerin bozulması neredeyse
+    kesindir. "Kısayol", yavaş ve sistematik bir şekilde ilerlemekten daha fazla zaman alacaktır.
+
+    En iyi uygulamalardan biri, kodunuzu her kararlı durumda olduğunda commit etmektir. Bu, uygulamanın hala çalıştığı bir duruma geri dönmeyi
+    kolaylaştırır.
+
+    Eğer content.body'nin sebepsiz yere tanımsız olmasıyla ilgili sorun yaşıyorsanız , app.use(express.json())'u dosyanın en üstüne eklemeyi
+    unutmadığınızdan emin olun.
+
+**************************************************************************************************************************************************
+
+Uygulamamizi ayrı modüller halinde yeniden düzenmek icin;
+
+    1-  ilk olarak ana dizinde controllers isimli bir klasör olusturarak bu klasör icerisinde blogs.js dosyasini olusturdum.Daha sonra bu dosya
+        icerisine index.js de yer alan http istek rotalarini tasidim.
+
+            const blogsRouter = require('express').Router()
+            const Blog = require('../models/blog')
+
+            blogsRouter.get('/', (request, response) => {
+                Blog
+                .find({})
+                .then(blogs => {
+                    response.json(blogs)
+                })
+            })
+
+            blogsRouter.post('/', (request, response) => {
+                const blog = new Blog(request.body)
+
+                blog
+                .save()
+                .then(result => {
+                    response.status(201).json(result)
+                })
+            })
+
+            module.exports = blogsRouter
+
+    2-  Daha sonra blogs.js icinde kullanilacak olan şemalar ve yöntemler icin ana dizinde Models isminde bir klasör olusturarak bu klasör
+        icerisinde blog.js dosyasini olusturdum. Daha sonra blog.js icerisine asagidaki kodlari tasidim.
+
+            const mongoose = require("mongoose");
+            const blogSchema = new mongoose.Schema({
+                title: String,
+                author: String,
+                url: String,
+                likes: Number
+            })
+
+            const Blog = mongoose.model('Blog', blogSchema)
+            module.exports = Blog
+
+    3-  Daha sonra ana dizinde utils isimli bir klasör olusturarak bu klasör icerisinde config.js dosyasini olusturdum. Daha
+        sonra bu dosya icerisine index.js de yer alan http istek rotalarini tasidim.
+
+            require('dotenv').config()
+            const PORT = process.env.PORT
+            const MONGODB_URI = process.env.MONGODB_URI
+
+            module.exports = {
+            MONGODB_URI,
+            PORT
+            }
+    4-  Daha sonra ana dizinde Express uygulamasının yapılandırılmasını ve temel işlemlerini gerçekleştiren app.js dosyasini
+        olusturdum. Ve icerisine index.js den asagidaki kodlari tasidim.
+
+            const config = require('./utils/config')
+            const express = require('express')
+            const app = express()
+            const cors = require('cors')
+            const blogsRouter = require('./controllers/blogs')
+            const mongoose = require('mongoose')
+
+            mongoose.set('strictQuery', false)
+            mongoose.connect(config.MONGODB_URI)
+                .then(() => {
+                    console.log('connected to MongoDB')
+                })
+                .catch((error) => {
+                    console.log('error connecting to MongoDB:', error.message)
+                })
+
+            app.use(cors())
+            app.use(express.json())
+            app.use('/api/blogs', blogsRouter)
+
+            module.exports = app
+
+    5-  Son olarak index.js'i kalan kodlara göre duzenledim.
+
+            const app = require('./app')
+            const config = require('./utils/config')
+
+            app.listen(config.PORT, () => {
+                console.log(`Server running on port http://localhost:${config.PORT}/api/blogs`)
+            })

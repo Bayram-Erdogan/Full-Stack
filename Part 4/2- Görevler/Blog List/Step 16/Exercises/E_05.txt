@@ -1,0 +1,26 @@
+4.5*: Yardımcı Fonksiyonlar ve Birim Testleri, adım 3
+
+    Bir parametre olarak blogların bir listesini alan yeni bir favoriteBlog işlevi tanımlayın. İşlev hangi blogun en çok beğeniye sahip olduğunu
+    bulur. Çok sayıda en iyi favori varsa, bunlardan birini döndürmek yeterlidir.
+
+    Fonksiyonun döndürdüğü değer aşağıdaki formatta olabilir:
+
+{
+  title: "Canonical string reduction",
+  author: "Edsger W. Dijkstra",
+  likes: 12
+}
+
+    NB nesneleri karşılaştırırken, deepStrictEqual yöntemini kullanmak muhtemelen isteyeceğiniz şeydir, çünkü strictEqual iki değerin aynı değer
+    olduğunu doğrulamaya çalışır, sadece aynı özellikleri içerdiğini değil. Çeşitli assert modül işlevleri arasındaki farklar için bu Stack
+    Overflow cevabına başvurabilirsiniz .
+
+    Bu egzersiz için testleri yeni bir describe bloğunun içine yazın. Kalan egzersizler için de aynısını yapın.
+
+**************************************************************************************************************************************************
+
+1-  Ilk olarak utils icindeki list_helper.js de favoriteBlog isimli yeni bir fonksiyon tanimladim. Bu fonksiyon for döngusunu kullanarak blogs
+    icindeki bloglari alip favorite degiskenine ekliyor ve daha sonra aldigi like degerlerini favorite degiskeni icindeki like ile
+    karsilastiriyor. Eger sonra gelen like degeri favorite degiskenindekinden buyuk ise favorite degiskenindeki blogu guncelliyor.
+
+2-  Daha sonra tests klasöru icinde favorite.test.js isimli yeni bir test dosyasi olusturdum. Ve gerekli test kodumu yazdim.
