@@ -1,0 +1,14 @@
+4.19: Blog Listesini Genişletme, adım 7
+
+    Yeni blogların eklenmesini, yalnızca HTTP POST isteğiyle geçerli bir belirtecin gönderilmesi durumunda mümkün olacak şekilde değiştirin.
+    Belirtecin tanımladığı kullanıcı, blogun yaratıcısı olarak belirlenir.
+
+**************************************************************************************************************************************************
+
+1-  Ilk adim olarak controllers/blogs.js de degisiklik yaptim.
+
+2-  ikinci adim olarak token eksikse veya geçersizse JsonWebTokenError istisnası ortaya çıkar. Bu özel durumu ele almak için errorHandler
+    middleware'i guncelledim. (Daha önce dosyayi olusturmamistim bu görevde sifirdan olusturdum.)
+
+3-  Ucuncu adim olarak requests dosyasi icinde yeni bir blog olusturup Authorization (Kullanici girisi yapildigi zaman verilen token) ekleyip
+    post ettim.

@@ -1,0 +1,66 @@
+4.17: Blog Listesini Genişletme, adım 5
+
+    Blogları, her blogun blogun Yaratıcısı hakkında bilgi içerecek şekilde genişletin.
+
+    Yeni bir blog oluşturulduğunda veritabanındaki herhangi bir kullanıcının (örneğin ilk bulunanın) Oluşturucu olarak atanmasını sağlayacak
+    şekilde yeni blog eklemeyi değiştirin. Bunu 4. bölüm doldurma kısmına göre uygulayın . Hangi kullanıcının Yaratıcı olarak atandığı henüz
+    önemli değil. İşlevsellik alıştırma 4.19'da tamamlanmıştır.
+
+    Tüm blogların listesini, yaratıcının kullanıcı bilgilerinin blogla birlikte görüntüleneceği şekilde değiştirin ve tüm kullanıcıların
+    listelenmesi aynı zamanda her kullanıcı tarafından oluşturulan blogları da görüntüler:
+
+**************************************************************************************************************************************************
+
+ 1- Ilk olarak controllers/users.js icindeki get rotasinin iceriginde degisiklik yaptim. find({})'a .populate('blogs', { url:1, title:1,
+    author:1, id:1}) ekledim.
+
+    usersRouter.get('/', async (request, response) => {
+        const users = await User
+            .find({}).populate('blogs', { url:1, title:1, author:1, id:1})
+
+        response.json(users)
+    })
+
+2-  ikinci adim olarak controllers/blogs.js icindeki get rotasinin iceriginde degisiklik yaptim. find({})'in arkasina .populate('user', {
+    username: 1, name: 1 })
+
+    blogsRouter.get('/', async (request, response) => {
+        const blogs = await Blog
+            .find({}).populate('user', { username: 1, name: 1 })
+
+        response.json(blogs)
+    })
+
+3-  Ucuncu adim olarak blog olusturmayi kullaniciya baglamak icin controllers/blogs.js icindeki post islemini guncelledim.
+
+const User = require('../models/user')                  BU satir
+
+blogsRouter.post("/", async (request, response) => {
+  const { title, url, userId, author, likes } = request.body;
+
+  if (!title || !url || !userId) {
+    return response.status(400).json({ error: 'title, url, and userId are required' });
+  }
+
+
+    const user = await User.findById(userId);           Bu satir
+
+    if (!user) {
+      return response.status(404).json({ error: 'User not found' });
+    }
+
+    const blog = new Blog({
+      url: url,
+      title: title,
+      author:author,
+      likes:likes,
+      user: user.id                                     Bu satir
+    });
+
+    const savedBlog = await blog.save();
+    user.blogs = user.blogs.concat(savedBlog._id);      Bu satir
+    await user.save();                                  Bu satir
+
+    response.status(201).json(savedBlog);
+
+});

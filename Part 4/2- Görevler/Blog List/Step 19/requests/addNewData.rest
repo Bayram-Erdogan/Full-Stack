@@ -1,0 +1,36 @@
+POST http://localhost:3003/api/blogs
+Content-Type: application/json
+{
+  "url": "https://test_url",
+  "title": "Ve daglar yankilandi",
+  "author": "Khalled Hosseini",
+  "likes":0,
+  "userId": "66f3dfb6e84b7e58019a2d78"
+}
+
+POST http://localhost:3003/api/blogs
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkdfRXIiLCJpZCI6IjY2ZjNmMTZmODYwMTM4OGQ1YmYyZmU2MyIsImlhdCI6MTcyNzI2MzEwNn0.VbLHdQrnCSXcaWh4gHKMjXEPGUQh6NwP-Puk5dEuCE4
+
+{
+  "url": "https://test_url",
+  "title": "Ve daglar yankilandi",
+  "author": "Khalled Hosseini",
+  "likes":0,
+  "userId": "66f3dfb6e84b7e58019a2d78"
+}
+
+###
+POST http://localhost:3003/api/blogs
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkJfRXIiLCJpZCI6IjY2ZjNkZmI2ZTg0YjdlNTgwMTlhMmQ3OCIsImlhdCI6MTcyNzI2MjA2M30.-9EVHVhUEoOneD51S9AQVfmx32mBSi1g7tS2pw6fpBQ
+
+{
+  "url": "https://test_url",
+  "title": "Limon agaci",
+  "author": "Sandy Tolan",
+  "likes":1,
+  "userId": "66f3dfb6e84b7e58019a2d78"
+}
+
+###

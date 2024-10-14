@@ -1,0 +1,18 @@
+4.18: Blog Listesini Genişletme, adım 6
+
+    Kısım 4 bölüm Jeton kimlik doğrulaması uyarınca jeton tabanlı kimlik doğrulamayı uygulayın.
+
+**************************************************************************************************************************************************
+
+1-  Ilk adim olarak npm install jsonwebtoken ile JSON web belirteçleri oluşturmamıza olanak tanıyan jsonwebtoken kitaplığını yükledim.
+
+2-  Ikinci adim olarak controllers icinde login.js dosyasi olusturdum.
+
+3-  Ucuncu adim olarak app.js'de login.js'i ice aktardim.
+
+4-  Dörduncu adim olarak .env dosyasinda SECRET' degiskenine bir string atadim.
+
+5-  Besinci adim olarak login islemi gerceklestirmek icin requests icerisinde bir login.rest dosyasi olusturdum.
+
+6-  Altinci adi olarak addNewUser.rest araciligi ile olusturmus oldugum kullanici bilgilerini kullanarak login rest uzerinden sisteme giris
+    gerceklestirdim.

@@ -1,0 +1,19 @@
+4.7*: Yardımcı Fonksiyonlar ve Birim Testleri, adım 5
+
+    Parametresi olarak bir blog dizisi alan mostLikes adlı bir fonksiyon tanımlayın . Fonksiyon, blog yazıları en fazla beğeniye sahip olan
+    yazarı döndürür. Dönüş değeri ayrıca yazarın aldığı toplam beğeni sayısını da içerir:
+
+{
+  author: "Edsger W. Dijkstra",
+  likes: 17
+}
+
+    Eğer birden fazla üst düzey blog yazarı varsa, bunlardan herhangi birini göstermek yeterlidir.
+
+**************************************************************************************************************************************************
+
+1-  Ilk olarak utils icindeki list_helper.js de mostLikes isimli yeni bir fonksiyon tanimladim. Bu fonksiyon Lodash kutuphanesine ait
+    fonksiyonlari kullanarak blogs icindeki yazarlara ait bloglari sayarak bir liste olusturuyor daha sonra bu liste icerisinden en cok bloga
+    sahip yazarin adini ve blog sayisini return ediyor.
+
+2-  Daha sonra tests klasöru icinde dummy.test.js icinde gerekli test kodumu yazdim.

@@ -1,0 +1,28 @@
+4.6*: Yardımcı Fonksiyonlar ve Birim Testleri, adım 4
+
+    Bu ve bir sonraki egzersiz biraz daha zorlayıcıdır. Bu iki egzersizi bitirmek kurs materyalinde ilerlemek için gerekli değildir, bu nedenle
+    bu bölümün materyalini tamamen inceledikten sonra bunlara geri dönmek iyi bir fikir olabilir.
+
+    Bu egzersizi tamamlamak ek kütüphaneler kullanılmadan yapılabilir. Ancak bu egzersiz Lodash kütüphanesini nasıl kullanacağınızı öğrenmek için
+    harika bir fırsattır.
+
+    mostBlogs adında bir fonksiyon tanımlayın ve bu fonksiyon bir blog dizisini parametre olarak alır. Fonksiyon en fazla bloga sahip olan yazarı
+    döndürür . Dönüş değeri ayrıca en fazla bloga sahip olan yazarın blog sayısını da içerir:
+
+    {
+    author: "Robert C. Martin",
+    blogs: 3
+    }
+
+    Eğer birden fazla üst düzey blog yazarı varsa, bunlardan herhangi birini geri göndermeniz yeterlidir.
+
+**************************************************************************************************************************************************
+
+1-  Ilk olarak terminalde npm install lodash yazarak Lodash kutuphanesini projeme ekledim. Ve onu list_helper.js de const _ = require('lodash');
+    ile projeme aktardim.
+
+2-  Daha sonra utils icindeki list_helper.js de mostBlogs isimli yeni bir fonksiyon tanimladim. Bu fonksiyon Lodash kutuphanesine ait
+    fonksiyonlari kullanarak blogs icindeki yazarlara ait bloglari sayarak bir liste olusturuyor daha sonra bu liste icerisinden en cok bloga
+    sahip yazarin adini ve blog sayisini return ediyor.
+
+3-  Daha sonra tests klasöru icinde dummy.test.js icinde gerekli test kodumu yazdim.
