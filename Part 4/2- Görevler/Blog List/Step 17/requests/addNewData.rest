@@ -1,0 +1,22 @@
+POST http://localhost:3003/api/blogs
+Content-Type: application/json
+
+{
+  "url": "https://test_url",
+  "title": "Ve daglar yankilandi",
+  "author": "Khalled Hosseini",
+  "likes":0,
+  "userId": "66f3dfb6e84b7e58019a2d78"
+}
+
+###
+POST http://localhost:3003/api/blogs
+Content-Type: application/json
+
+{
+  "url": "https://test_url",
+  "title": "Limon agaci",
+  "author": "Sandy Tolan",
+  "likes":1,
+  "userId": "66f3dfb6e84b7e58019a2d78"
+}
