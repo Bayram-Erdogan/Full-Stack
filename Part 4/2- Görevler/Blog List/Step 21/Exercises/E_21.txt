@@ -1,0 +1,62 @@
+4.21*: Blog Listesi Genişletme, adım 9
+
+    Blog silme işlemini, bir blogun yalnızca onu ekleyen kullanıcı tarafından silinebilmesini sağlayacak şekilde değiştirin. Bu nedenle,
+    bir blogun silinmesi yalnızca istekle birlikte gönderilen jetonun blogu oluşturanın jetonuyla aynı olması durumunda mümkündür.
+
+    Bir blogun silinmesi belirteç olmadan veya geçersiz bir kullanıcı tarafından yapılmaya çalışılırsa, işlemin uygun bir durum kodu döndürmesi
+    gerekir.
+
+    Veritabanından bir blog getirirseniz, şunu unutmayın:
+
+    const blog = await Blog.findById(...)
+
+    blog.user alanı bir dize değil, bir nesne içerir. Dolayısıyla, veritabanından getirilen nesnenin kimliğini bir dize kimliğiyle karşılaştırmak
+    istiyorsanız normal bir karşılaştırma işlemi çalışmaz. Veritabanından getirilen kimliğin öncelikle bir dizeye ayrıştırılması gerekir.
+
+    if ( blog.user.toString() === userid.toString() )
+
+**************************************************************************************************************************************************
+
+1-  Ilk adim olarak controllers/blogs.js de delete request'te degisiklik yaptim.
+
+    Eski hali
+
+    blogsRouter.delete("/:id", async (request,response, next) => {
+        try {
+            await Blog.findByIdAndDelete(request.params.id)
+            response.status(204).end()
+        }catch(exception) {
+            next(exception)
+        }
+    })
+
+    Yeni hali
+
+    blogsRouter.delete("/:id", async (request, response, next) => {
+        try {
+            const decodedToken = jwt.verify(request.token, process.env.SECRET);
+
+            if (!request.token || !decodedToken.id) {
+            return response.status(401).json({ error: 'invalid token' });
+            }
+
+            const blog = await Blog.findById(request.params.id);
+
+            if (!blog) {
+            return response.status(404).json({ error: 'blog not found' });
+            }
+
+            if (blog.user.toString() !== decodedToken.id.toString()) {
+            return response.status(403).json({ error: 'forbidden: only the creator can delete this blog' });
+            }
+
+            await Blog.findByIdAndDelete(request.params.id);
+            response.status(204).end();
+
+        } catch (exception) {
+            next(exception);
+        }
+    });
+
+2-  Ikinci adim olarak requests dosyasi icinde yeni bir blog olusturup Authorization (Kullanici girisi yapildigi zaman verilen token) ekleyip
+    post ettim.
