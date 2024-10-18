@@ -1,0 +1,25 @@
+4.16*: Blog Listesi Genişletme, adım 4
+
+    Yeni kullanıcı oluşturmaya aşağıdaki kısıtlamaları ekleyen bir özellik ekleyin: Hem kullanıcı adı hem de şifre verilmeli ve her ikisi de en
+    az 3 karakter uzunluğunda olmalıdır. Kullanıcı adı benzersiz olmalıdır.
+
+    Geçersiz bir kullanıcı oluşturulursa, işlemin uygun bir durum koduyla ve bir tür hata mesajıyla yanıt vermesi gerekir.
+
+    Not Parola kısıtlamalarını Mongoose doğrulamalarıyla test etmeyin. Bu iyi bir fikir değil çünkü arka uç tarafından alınan şifre ile
+    veritabanına kaydedilen şifre karması aynı şey değil. Parola uzunluğu, Mongoose doğrulamasını kullanmadan önce 3. bölümde yaptığımız gibi
+    denetleyicide doğrulanmalıdır .
+
+    Ayrıca, geçersiz kullanıcıların oluşturulmamasını ve geçersiz bir kullanıcı ekleme işleminin uygun bir durum kodu ve hata mesajı döndürmesini
+    sağlayan testler uygulayın .
+
+    Not: Testleri birden fazla dosya üzerinde tanımlamaya karar verirseniz, varsayılan olarak her test dosyasının kendi sürecinde yürütüldüğünü
+    unutmayın ( belgelerdeki Test yürütme modeli bölümüne bakın ). Bunun sonucu olarak farklı test dosyaları aynı anda yürütülür. Testler aynı
+    veritabanını paylaştığından, eş zamanlı yürütme sorunlara neden olabilir; bu, testleri --test-concurrency=1 seçeneğiyle yürüterek , yani
+    bunları sırayla yürütülecek şekilde tanımlayarak önlenebilir.
+
+**************************************************************************************************************************************************
+
+1-  Ilk olarak kullanici olusturmak icin post isleminde if kosullari olusturdum ve bu kosullar icerisinde username ve password'un varligini,
+    uzunluklarini ve username'in uniqe oldugunu kotrol ettim.
+
+2-  Ikinci adim olarak test/blogs.test.js icerisinde gecersiz username ve password icin testler yazdim.

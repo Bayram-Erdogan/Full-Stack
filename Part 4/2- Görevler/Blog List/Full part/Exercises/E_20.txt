@@ -1,0 +1,120 @@
+4.20*: Blog Listesi Genişletme, adım 8
+
+    4. bölümdeki bu örnek (https://fullstackopen.com/en/part4/token_authentication#limiting-creating-new-notes-to-logged-in-users),
+    denetleyiciler/blogs.js dosyasındaki getTokenFrom yardımcı işleviyle belirtecin başlıktan alınmasını gösterir .
+
+    Aynı çözümü kullandıysanız, Refactor belirteci bir ara yazılıma (https://fullstackopen.com/en/part3/node_js_and_express#middleware)
+    alıyor  Ara yazılım, belirteci Yetkilendirme başlığından almalı ve onu istek nesnesinin belirteç alanına atamalıdır.
+
+    Başka bir deyişle, bu ara yazılımı tüm rotalardan önce app.js dosyasına kaydederseniz
+
+    app.use(middleware.tokenExtractor)
+
+    Rotalar token'a request.token ile erişebilir :
+
+    blogsRouter.post('/', async (request, response) => {
+        // ..
+        const decodedToken = jwt.verify(request.token, process.env.SECRET)
+        // ..
+    })
+
+    Normal bir ara yazılım fonksiyonunun (https://fullstackopen.com/en/part3/node_js_and_express#middleware), kontrolü bir sonraki ara
+    yazılıma taşımak için sonunda son parametreyi çağıran üç parametreli bir fonksiyon olduğunu unutmayın:
+
+    const tokenExtractor = (request, response, next) => {
+        // code that extracts the token
+
+        next()
+    }
+
+**************************************************************************************************************************************************
+
+1-  Ilk olarak utils/middleware.js dosyasi icinde yeni bir middleware olusturdum.
+
+    const tokenExtractor = (request, response, next) => {
+        const authorization = request.get('authorization')
+        if (authorization && authorization.startsWith('Bearer ')) {
+            request.token = authorization.replace('Bearer ', '')
+        } else {
+            request.token = null
+        }
+        next()
+    }
+
+2-  Daha sonra bunu app.js de kullanima aldim.
+
+    const middleware = require('./utils/middleware')
+    //
+    app.use(middleware.tokenExtractor)
+
+3-  Son olarak ise controllers/blogs.js icerisinde post islemini guncelledim.
+
+    Eski hali
+
+    blogsRouter.post("/", async (request, response) => {
+        const { title, url, userId, author, likes } = request.body;
+
+        const decodedToken = jwt.verify(getTokenFrom(request), process.env.SECRET)
+        if (!decodedToken.id) {
+            return response.status(401).json({ error: 'token invalid' })
+        }
+
+
+        if (!title || !url || !userId) {
+            return response.status(400).json({ error: 'title, url, and userId are required' });
+        }
+
+        const user = await User.findById(decodedToken.id)
+
+        if (!user) {
+        return response.status(404).json({ error: 'User not found' });
+        }
+
+        const blog = new Blog({
+        url: url,
+        title: title,
+        author:author,
+        likes:likes,
+        user: user.id
+        });
+
+        const savedBlog = await blog.save();
+        user.blogs = user.blogs.concat(savedBlog._id);
+        await user.save();
+
+        response.status(201).json(savedBlog);
+
+    });
+
+
+    Yeni hali
+
+    blogsRouter.post('/', async (request, response) => {
+        const { title, url, author, likes } = request.body;
+
+        const decodedToken = jwt.verify(request.token, process.env.SECRET)
+
+        if (!request.token || !decodedToken.id) {
+            return response.status(401).json({ error: 'invalid token' });
+        }
+
+        const user = await User.findById(decodedToken.id)
+
+        if (!user) {
+            return response.status(404).json({ error: 'User not found' });
+        }
+
+        const blog = new Blog({
+            title,
+            author,
+            url,
+            likes: likes || 0,
+            user: user._id
+        });
+
+        const savedBlog = await blog.save();
+        user.blogs = user.blogs.concat(savedBlog._id);
+        await user.save();
+
+        response.status(201).json(savedBlog);
+    })
