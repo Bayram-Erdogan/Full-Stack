@@ -1,0 +1,12 @@
+4.12*: Blog Listesi testleri, adım 5
+
+    /api/blogs uç noktası üzerinden yeni bloglar oluşturmaya ilişkin , başlık veya url özelliklerinin istek verilerinde eksik olması durumunda
+    arka ucun isteğe 400 Kötü İstek durum koduyla yanıt verdiğini doğrulayan testler yazın .
+
+    Kodun testi geçmesi için gerekli değişiklikleri yapın.
+
+**************************************************************************************************************************************************
+
+1-  tests/blogs.test.js icinde title ve url'i olmayan psot isteklerine 400 kodu ile dönus yapan 2 test olusturdum.
+
+2-  controllers/blogs.js icindeki post islemine bir if kosulu yazarak title ve url'i zorunlu kildim.

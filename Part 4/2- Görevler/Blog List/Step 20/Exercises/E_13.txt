@@ -1,0 +1,13 @@
+4.13 Blog Listesi Genişletmeleri, adım 1
+
+    Tek bir blog yazısı kaynağını silmeye yönelik işlevselliği uygulayın.
+
+    async/await sözdizimini kullanın. HTTP API'yi tanımlarken RESTful kurallarını izleyin.
+
+    İşlevsellik için testleri uygulayın.
+
+**************************************************************************************************************************************************
+
+    1-  Daha sonra controllers/blogs.js icerisinde silineck id icin delete request olusturdum.
+
+    2-  Son olarak tests/blogs.test.js icerisnde silme islemini test etmek icin bir test olusturdum.

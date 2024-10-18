@@ -1,0 +1,19 @@
+4.14 Blog Listesi Genişletmeleri, adım 2
+
+    Bireysel blog yazılarının bilgilerini güncelleme işlevini uygulayın.
+
+    async/await kullanın.
+
+    Uygulama çoğunlukla bir blog yazısı için beğeni sayısını güncellemeye ihtiyaç duyar . Bu işlevi, 3. bölümde notları güncellemeyi
+    uyguladığımız şekilde uygulayabilirsiniz .
+
+    İşlevsellik için testleri uygulayın.
+
+**************************************************************************************************************************************************
+
+1-  Ilk olarak controllers/blogs.js icerisinde put request icin yeni bir rota tanimladim.
+
+2-  Daha sonra tests/blogs.test.js icerisinde update islemi icin bir test olusturdum.
+
+3-  Son olarak ise her seferinde testlerden sonra veri tabanindaki verileri silmek icin test/blogs.test icinde after'a await Blog.deleteMany({});
+    satirini ekledim.

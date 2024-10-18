@@ -1,0 +1,28 @@
+
+
+POST http://localhost:3003/api/blogs
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkdfRXIiLCJpZCI6IjY2ZjQxM2Q5MWQ0NGNkM2UzNDFjNGQ4ZCIsImlhdCI6MTcyNzI3MTkxMn0.p2AAa-1_Ij2XUTJmTSRTF6BBOiBWZ6zU83Adi2lelmA
+
+{
+  "url": "https://test_url",
+  "title": "Ve daglar yankilandi 2",
+  "author": "Khalled Hosseini",
+  "likes":0,
+  "userId": "66f40015799c782578ce8cc2"
+}
+
+###
+POST http://localhost:3003/api/blogs
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkJfRXIiLCJpZCI6IjY2ZjQwMDE1Nzk5Yzc4MjU3OGNlOGNjMiIsImlhdCI6MTcyNzI2NzA0OH0.F5F3LwKPEN_dZj1b0pUKiQJo4dkSJ6pNloICz9QIo00
+
+{
+  "url": "https://test_url",
+  "title": "Limon agaci",
+  "author": "Sandy Tolan",
+  "likes":1,
+  "userId": "66f3dfb6e84b7e58019a2d78"
+}
+
+###

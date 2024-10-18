@@ -1,0 +1,10 @@
+4.11*: Blog Listesi Testleri, adım 4
+
+    İstekte likes özelliğinin eksik olması durumunda varsayılan değerinin 0 olacağını doğrulayan bir test yazın . Oluşturulan blogların diğer
+    özelliklerini henüz test etmeyin.
+
+    Kodun testi geçmesi için gerekli değişiklikleri yapın.
+
+**************************************************************************************************************************************************
+
+1-   tests/blogs.test.js de likes özelligi olmadan post islemi yapan bir test olusturdum.

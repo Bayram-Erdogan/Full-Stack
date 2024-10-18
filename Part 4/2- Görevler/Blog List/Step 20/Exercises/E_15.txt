@@ -1,0 +1,35 @@
+4.15: Blog Listesini Genişletme, 3. adım
+
+    api/users adresine bir HTTP POST isteği yaparak yeni kullanıcılar oluşturmanın bir yolunu uygulayın . Kullanıcıların bir kullanıcı adı,
+    şifresi ve adı vardır .
+
+    Parolaları veritabanına açık metin olarak kaydetmeyin, ancak 4. bölüm Kullanıcı oluşturma bölümünde yaptığımız gibi bcrypt kitaplığını
+    kullanın .
+
+    Not: Bazı Windows kullanıcılarının bcrypt ile sorunları olmuştur . Sorunla karşılaşırsanız kütüphaneyi komutla kaldırın.
+
+    npm uninstall bcrypt
+
+    ve bunun yerine bcryptjs'i yükleyin .
+
+    Uygun bir HTTP isteği yaparak tüm kullanıcıların ayrıntılarını görmenin bir yolunu uygulayın.
+
+**************************************************************************************************************************************************
+
+1-  Ilk olarak models klasöru icinde bir user.js dosyasi olusturdum.
+
+2-  İkinci adım olarak, models/blog.js dosyasındaki blog Schema'yı, blogu oluşturan kullanıcı hakkındaki bilgileri içerecek şekilde güncelledim.
+
+3-  Ucuncu adim olarak npm install bcrypt ile paralo karmasini ( password hashes ) uygulamama yukledim.
+
+4-  Dörduncu adim olarak user rotalari icin controllers klasöru icine users.js adinda bir dosya olusturdum.
+
+5-  Besinci adim olarak app.js icinde controllers/users.js'i ice aktardim.
+
+6-  Altinci adim olarak kullanici post'u olusturmak icin yeni bir kullanici post request istegi olusturdum.
+
+7-  Yedinci adim olarak kullanicilari getirmek icin controllers/users.js icerisinde get rotasi olusturdum.
+
+8-  Sekizinci adim olarak basarili kullanici olusturma islemi icin tests/blogs.test.js icinde bir test olusturdum.
+
+Not     :   Bu testte tests_helper.js isimli bir dosya olusturdum
