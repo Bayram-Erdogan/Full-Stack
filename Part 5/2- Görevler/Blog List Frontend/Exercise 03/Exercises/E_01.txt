@@ -1,0 +1,87 @@
+Alıştırmalar 5.1.-5.4.
+
+    Şimdi son bölümde oluşturduğumuz blog listesi arka ucu için bir ön uç oluşturacağız. Çözümünüzün temeli olarak GitHub'daki bu uygulamayı
+    kullanabilirsiniz. Arka ucunuzu 3. bölümde gösterildiği gibi bir proxy ile bağlamanız gerekir .
+
+    Bitmiş çözümünüzü göndermeniz yeterlidir. Her egzersizden sonra taahhütte bulunabilirsiniz, ancak bu gerekli değildir.
+
+    İlk birkaç alıştırma, React hakkında şimdiye kadar öğrendiğimiz her şeyi gözden geçiriyor. Özellikle arka ucunuz eksikse, zorlayıcı
+    olabilirler. 4. kısım için cevap olarak işaretlediğimiz arka ucu kullanmak en iyisi olabilir.
+
+    Egzersizleri yaparken bahsettiğimiz tüm hata ayıklama yöntemlerini aklınızda tutun, özellikle konsolu göz önünde bulundurun.
+
+    Uyarı: Eğer async/await ve then komutlarını karıştırdığınızı fark ederseniz , %99.9 ihtimalle bir şeyleri yanlış yapıyorsunuzdur. Ya birini
+    ya da diğerini kullanın, asla ikisini birden kullanmayın.
+
+**************************************************************************************************************************************************
+
+5.1: Blog Listesi Ön Ucu, adım 1
+
+    Uygulamayı GitHub'dan şu komutla kopyalayın:
+
+    git clone https://github.com/fullstack-hy2020/bloglist-frontend
+
+    Klonlanmış uygulamanın git yapılandırmasını kaldırın
+
+    cd bloglist-frontend
+    rm -rf .git
+
+    Uygulama normal şekilde başlatılır, ancak öncelikle bağımlılıklarını yüklemeniz gerekir:
+
+    npm install
+    npm run dev
+
+    Giriş işlevselliğini ön uca uygulayın. Başarılı bir girişle döndürülen belirteç, uygulamanın durum kullanıcısına kaydedilir .
+
+    Eğer kullanıcı giriş yapmamışsa sadece giriş formu görünür. Eğer kullanıcı giriş yapmışsa, kullanıcının adı ve blogların listesi gösterilir.
+
+    Giriş yapmış kullanıcının kullanıcı bilgilerinin henüz yerel depolamaya kaydedilmesine gerek yoktur.
+
+    Not: Giriş formunun koşullu oluşturulmasını örneğin şu şekilde uygulayabilirsiniz:
+
+  if (user === null) {
+    return (
+      <div>
+        <h2>Log in to application</h2>
+        <form>
+          //...
+        </form>
+      </div>
+    )
+  }
+
+  return (
+    <div>
+      <h2>blogs</h2>
+      {blogs.map(blog =>
+        <Blog key={blog.id} blog={blog} />
+      )}
+    </div>
+  )
+}
+
+**************************************************************************************************************************************************
+
+*   Ilk olarak bana belirtilen adresteki dosyayi clone'layip calistirdim.
+
+*   Daha sonra kullanici adi, parolasi ve giris yapan kullanici icin birer state degiskeni olusturdum.
+
+        const [username, setUsername] = useState('')
+        const [password, setPassword] = useState('')
+        const [user, setUser] = useState(null)
+
+*   Daha sonra giris islemini takip edebilmek icin handleLogin isimli bir fonksiyon olusturdum.
+
+        const handleLogin = async (event) => {
+            event.preventDefault()
+            const user = await loginService.login({
+                username, password,
+            })
+            setUser(user)
+            setUsername('')
+            setPassword('')
+        }
+
+*   Daha sonra services icinde login.js isimli bir dosya olusturdum ve bunu App.jsx icinde import ettim.
+
+*   Son olarak girisin bararili yada basarisiz olmasi durumunda gösterilecek olan ara yuzu belirledim.
