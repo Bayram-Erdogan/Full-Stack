@@ -1,0 +1,65 @@
+5.3: Blog Listesi Ön Ucu, adım 3
+
+    Uygulamanızı, oturum açmış bir kullanıcının yeni bloglar eklemesine izin verecek şekilde genişletin:
+
+**************************************************************************************************************************************************
+
+*   Ilk olarak kullanicinin girecegi title, author ve url bilgileri icin state'ler olusturdum.
+
+        const [title, setTitle] = useState('')
+        const [author, setAuthor] = useState('')
+        const [url, setUrl] = useState('')
+
+*   Daha sonra giris yapmis olan kullanicinin verileri girebilmesi icin bir form olusturdum.
+
+        <h2>create new</h2>
+        <form onSubmit={addBlog}>
+            <div>
+                title
+                <input
+                type="text"
+                value={title}
+                name="Title"
+                onChange={({ target }) => setTitle(target.value)}
+                />
+            </div>
+            <div>
+                author
+                <input
+                type="text"
+                value={author}
+                name="Author"
+                onChange={({ target }) => setAuthor(target.value)}
+                />
+            </div>
+            <div>
+                url
+                <input
+                type="text"
+                value={url}
+                name="Url"
+                onChange={({ target }) => setUrl(target.value)}
+                />
+            </div>
+            <button type="submit">create</button>
+        </form>
+
+*   Son olarak da kullanicinin girdigi verileri isleyebilmesi icin bir fonksiyon olusturdum.
+
+          const addBlog = (event) => {
+            event.preventDefault()
+            const blogObject = {
+                title: title,
+                author: author,
+                url: url
+            }
+
+            blogService
+            .create(blogObject)
+                .then(returnedBlog => {
+                setBlogs(blogs.concat(returnedBlog))
+                setTitle('')
+                setAuthor('')
+                setUrl('')
+            })
+          }
