@@ -1,0 +1,39 @@
+5.7 Blog Listesi Ön Ucu, adım 7
+
+    Her bloga, blog hakkındaki tüm detayların gösterilip gösterilmeyeceğini kontrol eden bir buton ekleyelim.
+
+    Butona tıklandığında blogun tüm detayları açılır. Ve tekrar butona tıklandığında detaylar gizleniyor.
+
+    Bu noktada beğen butonuna herhangi bir işlem yapmamıza gerek kalmıyor.
+
+
+    2. bölümde gösterildiği gibi satır içi stilleri kullanarak uygulamaya stil eklemek kolaydır :
+
+        const Blog = ({ blog }) => {
+            const blogStyle = {
+                paddingTop: 10,
+                paddingLeft: 2,
+                border: 'solid',
+                borderWidth: 1,
+                marginBottom: 5
+            }
+
+            return (
+                <div style={blogStyle}>
+                <div>
+                    {blog.title} {blog.author}
+                </div>
+                // ...
+            </div>
+        )}
+
+    Not: Bu bölümde uygulanan işlevsellik, Togglable bileşeni tarafından sağlanan işlevsellikle neredeyse aynı olsa da , istenen davranışı elde
+    etmek için doğrudan kullanılamaz. En kolay çözüm, ayrıntıların görüntülenip görüntülenmeyeceğini kontrol eden bir durumu blog bileşenine
+    eklemek olacaktır.
+
+**************************************************************************************************************************************************
+
+*   Blog.jsx dosyasindaki Blog bilesenini degistirdim.
+
+
+
