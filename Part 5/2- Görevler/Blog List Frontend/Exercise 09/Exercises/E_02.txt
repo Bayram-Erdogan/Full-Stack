@@ -1,0 +1,22 @@
+5.2: Blog Listesi Ön Ucu, adım 2
+
+    Yerel depolamayı kullanarak girişi 'kalıcı' hale getirin. Ayrıca, çıkış yapmanın bir yolunu uygulayın.
+
+    Kullanıcının oturumu kapatıldıktan sonra tarayıcının kullanıcı bilgilerini hatırlamamasını sağlayın.
+
+**************************************************************************************************************************************************
+
+*   Ilk olarak giris yapan kullaniciyi yerel depoda kalici kilmak icin handleLogin fonksiyonunda degisiklik yaptim. (asagidaki kodu ekledim.)
+
+        window.localStorage.setItem(
+            'loggedNoteappUser', JSON.stringify(user)
+        )
+
+*   Daha sonra ise kullanici cikis yaptiginda yerel depodan kullanici silmek icin yeni bir handleLogout fonksiyonu olusturdum.
+
+        const handleLogout = () => {
+            window.localStorage.removeItem('loggedBlogappUser')
+            setUser(null)
+        }
+
+*   Son olarak kullanicin cikis yapabilmesi icin bir buton olusturdum.
