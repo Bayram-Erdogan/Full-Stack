@@ -1,0 +1,46 @@
+
+5.8: Blog Listesi Ön Ucu, adım 8
+
+    Beğeni butonunun işlevselliğini uygulayın. Beğeniler, arka uçta blog yazısının benzersiz adresine bir HTTP PUT isteği yapılarak artırılır.
+
+    Arka uç işlemi tüm blog yazısını değiştirdiğinden, istek gövdesindeki tüm alanlarını göndermeniz gerekecektir. Aşağıdaki blog yazısına bir
+    beğeni eklemek isterseniz:
+
+{
+  _id: "5a43fde2cbd20b12a2c34e91",
+  user: {
+    _id: "5a43e6b6c37f3d065eaaa581",
+    username: "mluukkai",
+    name: "Matti Luukkainen"
+  },
+  likes: 0,
+  author: "Joel Spolsky",
+  title: "The Joel Test: 12 Steps to Better Code",
+  url: "https://www.joelonsoftware.com/2000/08/09/the-joel-test-12-steps-to-better-code/"
+},
+
+    Aşağıdaki istek verileriyle /api/blogs/5a43fde2cbd20b12a2c34e91 adresine bir HTTP PUT isteği yapmanız gerekir :
+
+{
+  user: "5a43e6b6c37f3d065eaaa581",
+  likes: 1,
+  author: "Joel Spolsky",
+  title: "The Joel Test: 12 Steps to Better Code",
+  url: "https://www.joelonsoftware.com/2000/08/09/the-joel-test-12-steps-to-better-code/"
+}
+
+    Kullanıcı referansını idare edebilmek için arka ucun da güncellenmesi gerekiyor.
+
+**************************************************************************************************************************************************
+
+*   Ilk olarak src/components icindeki Blog bilesenini guncelledim.
+
+*   services/blogs.js icinde update istegi olusturuldu.
+
+*   App.jsx icinde bloglari gösteren map guncellendi.
+
+      {blogs.map(blog => (
+          <Blog key={blog.id} blog={blog} updateBlog={updateBlog}  />  updateBlog EKLENDI
+      ))}
+
+* Son olarak ise backend de pust isrgi guncellendi

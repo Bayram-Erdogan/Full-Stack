@@ -1,0 +1,26 @@
+5.5 Blog Listesi Ön Ucu, adım 5
+
+    Blog yazıları oluşturma formunu yalnızca uygun olduğunda görüntülenecek şekilde değiştirin. Ders materyalinin bu bölümünde daha önce
+    gösterilene benzer işlevselliği kullanın . Bunu yapmak isterseniz, 5. bölümde tanımlanan Togglable bileşenini kullanabilirsiniz.
+
+    Varsayılan olarak form görünür değildir
+
+    Yeni blog oluştur butonuna tıklandığında genişler
+
+    Yeni bir blog oluşturulduktan sonra form tekrar gizlenir.
+
+**************************************************************************************************************************************************
+
+*   Ilk olarak giris formunu src altinda LoginForm isimli ayri bir bilesene cikardim
+
+*   Daha sonra App.jsx de giris formunun görunurlugunu takip edecek bir state olusturdum.
+
+        const [loginVisible, setLoginVisible] = useState(false)
+
+*   Daha sonra ise App.jsx de loginForm isimli bir fonksiyonel bir bilesen olusturdum. Ve onu if blogunda yer alan form yerine cagirarak
+    kullandim. Bu asamaya kadar yaptiklarimla giris esnasinda login formunu gizlenir/görunur yapmis oldum.
+
+*   src altinda Togglable bilesenini olusturdum.
+
+
+
