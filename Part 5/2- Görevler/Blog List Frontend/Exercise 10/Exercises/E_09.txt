@@ -1,0 +1,58 @@
+5.9: Blog Listesi Ön Ucu, adım 9
+
+    Bir şeylerin ters gittiğini fark ediyoruz. Uygulamada bir blog beğenildiğinde, blogu ekleyen kullanıcının adı ayrıntılarında gösterilmez:
+
+    Tarayıcı yeniden yüklendiğinde kişinin bilgileri görüntülenir. Bu kabul edilebilir bir durum değil, sorunun nerede olduğunu bulun ve
+    gerekli düzeltmeyi yapın.
+
+    Elbette her şeyi zaten doğru yapmış olmanız ve kodunuzda sorunun oluşmaması da mümkündür. Bu durumda devam edebilirsiniz.
+
+**************************************************************************************************************************************************
+
+*   Arka ucda put isteginde degisiklik yaptim.
+
+    Eski hali
+
+blogsRouter.put('/:id', async (request, response, next) => {
+  const body = request.body;
+
+  const decodedToken = jwt.verify(request.token, process.env.SECRET);
+
+  if (!request.token || !decodedToken.id) {
+      return response.status(401).json({ error: 'invalid token' });
+  }
+
+  const updatedBlog = {
+      likes: body.likes,
+  };
+
+  Blog.findByIdAndUpdate(request.params.id, updatedBlog, { new: true })
+      .then(updatedBlog => {
+          response.json(updatedBlog);
+      })
+      .catch(error => next(error));
+});
+
+    Yeni hali
+
+blogsRouter.put('/:id', async (request, response, next) => {
+  const body = request.body;
+
+  const decodedToken = jwt.verify(request.token, process.env.SECRET);
+
+  if (!request.token || !decodedToken.id) {
+    return response.status(401).json({ error: 'invalid token' });
+  }
+
+  const updatedBlog = {
+    likes: body.likes,
+  };
+
+  try {
+    const blog = await Blog.findByIdAndUpdate(request.params.id, updatedBlog, { new: true })
+      .populate('user', { username: 1, name: 1 });
+      response.json(blog);
+  } catch (error) {
+    next(error);
+  }
+});
