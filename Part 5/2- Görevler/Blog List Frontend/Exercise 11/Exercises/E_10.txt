@@ -1,0 +1,66 @@
+5.10: Blog Listesi Ön Ucu, adım 10
+
+    Blog gönderilerini beğeni sayısına göre sıralamak için uygulamayı değiştirin . Sıralama dizi sıralama yöntemiyle yapılabilir.
+
+**************************************************************************************************************************************************
+
+*   Default olarak bloglar eklenme sirasina göre gösteriliyor ancak likes sayisina göre sirlamak icin sort yöntemi kullanilabilir. Bunun icin
+    tum bloglari cagirmak icin kullandigim useEffect'i guncelledim. Böylece kullanici sayfaya girdiginde likes sayisina göre sirlama görur.
+
+    Eski hali
+
+    useEffect(() => {
+        blogService.getAll().then(blogs =>
+        setBlogs( blogs )
+        )
+    }, [])
+
+    Yeni hali
+
+    useEffect(() => {
+        blogService.getAll().then(blogs => {
+            const sortedBlogs = blogs.sort((a, b) => b.likes - a.likes);
+            setBlogs(sortedBlogs);
+        });
+    }, []);
+
+*   Ancak yukaridaki islem tek basina yeterli degil bunun icin Blog.js icindeki handleLike' i da guncelledim.
+
+    Eski hali
+
+    const handleLike = async () => {
+    const updatedBlog = {
+      id: blog.id,
+      title: blog.title,
+      author: blog.author,
+      url: blog.url,
+      likes: blog.likes + 1,
+      user: blog.user,
+    };
+    await updateBlog(blog.id, updatedBlog);
+
+  };
+
+    Yeni hali
+const handleLike = async () => {
+    const updatedBlog = {
+      id: blog.id,
+      title: blog.title,
+      author: blog.author,
+      url: blog.url,
+      likes: blog.likes + 1,
+      user: blog.user,
+    };
+    await updateBlog(blog.id, updatedBlog);
+
+    const updatedBlogs = blogs.map(b => {
+      if (b.id === blog.id) {
+        return updatedBlog;
+      }
+      return b;
+    });
+
+    updatedBlogs.sort((a, b) => b.likes - a.likes);
+    setBlogs(updatedBlogs);
+
+  };
