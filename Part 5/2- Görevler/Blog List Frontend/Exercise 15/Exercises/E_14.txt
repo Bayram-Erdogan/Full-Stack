@@ -1,0 +1,12 @@
+5.14: Blog Listesi Testleri, adım 2
+
+    Gösterilen detayları kontrol eden butona tıklandığında blogun URL'sinin ve beğeni sayısının gösterildiğini kontrol eden bir test yapın.
+
+**************************************************************************************************************************************************
+
+*   ilk olarak npm install --save-dev @testing-library/user-event ile kullanıcı girdisini simüle etmeyi biraz daha kolaylaştıran bir kullanıcı
+    olayı kütüphanesini import ettim.
+
+*   Ikinici adim olarak import userEvent from '@testing-library/user-event' ile kutuphaneyi projeme dahil ettim.
+
+*   Ucuncu adim olarak testimi yazdim.

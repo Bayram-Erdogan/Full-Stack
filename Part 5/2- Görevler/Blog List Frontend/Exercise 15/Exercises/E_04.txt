@@ -1,0 +1,38 @@
+5.4: Blog Listesi Ön Ucu, adım 4
+
+    Sayfanın en üstünde kullanıcıyı başarılı ve başarısız işlemler hakkında bilgilendiren bildirimler uygulayın. Örneğin, yeni bir blog
+    eklendiğinde, aşağıdaki bildirim gösterilebilir:
+
+    Giriş başarısız olduğunda aşağıdaki bildirim gösterilebilir:
+
+    Bildirimlerin birkaç saniye görünür olması gerekir. Renk eklemek zorunlu değildir.
+
+**************************************************************************************************************************************************
+
+*   Ilk olarak hata mesajini tutmak ve duzenlemek icin bir state olusturdum.
+
+        const [errorMessage, setErrorMessage] = useState(null)
+
+*   Daha sonra ise mesajlari gösterecek olan Notification isimli bir bilesen olusturdum.
+
+        const Notification = ({ message, type = 'error' }) => {
+            if (message === null) {
+                return null
+            }
+
+            const typeStyle = type === 'successful' ? 'successful' : 'error';
+
+            return (
+                <div className={typeStyle}>
+                    {message}
+                </div>
+            )
+        }
+
+*   Daha sonra olusturdugum Notification bilesenini gerekli yerlerden cagirdim.
+
+        <Notification message={errorMessage} type="error"/>
+        <Notification message={errorMessage} type="successful"/>
+
+
+*   Son olarak ise handleLogin ve addBlog fonksiyonlarini guncelledim.

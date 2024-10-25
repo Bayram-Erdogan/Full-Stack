@@ -1,0 +1,7 @@
+5.15: Blog Listesi Testleri, adım 3
+
+    Beğen butonuna iki kez tıklandığında, bileşenin props olarak aldığı olay işleyicisinin iki kez çağrılmasını sağlayan bir test yapın.
+
+**************************************************************************************************************************************************
+
+*   src/components/Blog.test.jsx icinde testimi yazdim

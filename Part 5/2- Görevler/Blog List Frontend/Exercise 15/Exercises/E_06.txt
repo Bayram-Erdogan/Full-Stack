@@ -1,0 +1,14 @@
+5.6 Blog Listesi Ön Ucu, adım 6
+
+    Yeni bir blog oluşturma formunu kendi bileşenine ayırın (eğer daha önce yapmadıysanız) ve yeni bir blog oluşturmak için gereken tüm durumları
+    bu bileşene taşıyın.
+
+    Bu parçanın materyalinden anlaşılacağı üzere, bileşenin NoteForm bileşeni gibi çalışması gerekmektedir.
+
+**************************************************************************************************************************************************
+
+*   Blog ekleme formunu BlogForm isimli ayri bir bilesene cikardim.
+
+*   Daha sonra ise App.jsx de blogForm isimli bir fonksiyonel bir bilesen olusturdum.
+
+*   Son olarak Togglable kullanarak olusturdugum blogForm uzerinden verilerimi BlogForm bilesenine göndererek bu bu bileseni cagirdim.
