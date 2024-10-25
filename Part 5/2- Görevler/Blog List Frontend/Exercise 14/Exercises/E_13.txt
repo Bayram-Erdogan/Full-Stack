@@ -1,0 +1,47 @@
+5.13: Blog Listesi Testleri, adım 1
+
+    Bir blogu görüntüleyen bileşenin blogun başlığını ve yazarını işlediğini, ancak URL'sini veya beğeni sayısını varsayılan olarak
+    işlemediğini kontrol eden bir test yapın.
+
+    Gerektiğinde testlere yardımcı olmak için bileşene CSS sınıfları ekleyin.
+
+**************************************************************************************************************************************************
+
+*   Ilk olarak npm install --save-dev vitest jsdom ile Vitest'i ve web tarayıcısını simüle eden jsdom kütüphanesini yükledim.
+
+*   ikinci adim olarak npm install --save-dev @testing-library/react @testing-library/jest-dom ile react test kutuphanesini yukledim.
+
+*   Ucuncu adim olarak testleri çalıştırmak için package.json dosyasına bir script ekledim.
+        {
+            "scripts": {
+                // ...
+                "test": "vitest run"
+            }
+            // ...
+        }
+
+*   Dörduncu adim olarak proje kökünde aşağıdaki içerikle testSetup.js adlı bir dosya oluşturdum.
+
+        import { afterEach } from 'vitest'
+        import { cleanup } from '@testing-library/react'
+        import '@testing-library/jest-dom/vitest'
+
+        afterEach(() => {
+            cleanup()
+        })
+
+*   Besinci adim olarak vite.config.js dosyasını aşağıdaki gibi genişlettim
+
+        export default defineConfig({
+            // ...
+            test: {
+                environment: 'jsdom',
+                globals: true,
+                setupFiles: './testSetup.js',
+            }
+        })
+
+*   Altinci adim olarak Blog.jsx icinde duzenleme yaptim. Bu duzenlemede style'i css dosyasi icine aldim ve oradan classname tanimlayarak import
+    ettim.
+
+*   Yedinci adim olarak Bolg.test.jsx dosyasi olusturdum ve testlerimi yazdim.
