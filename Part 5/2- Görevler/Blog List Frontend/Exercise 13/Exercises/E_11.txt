@@ -1,0 +1,40 @@
+5.11: Blog Listesi Ön Ucu, adım 11
+
+    Blog gönderilerini silmek için yeni bir düğme ekleyin. Ayrıca blog gönderilerini silme mantığını ön uçta uygulayın.
+
+    Bir blog gönderisini silmek için kullanılan onay iletişim kutusunu window.confirm işleviyle uygulamak kolaydır .
+
+    Bir blog gönderisini silme düğmesini yalnızca blog gönderisi kullanıcı tarafından eklenmişse gösterin.
+
+**************************************************************************************************************************************************
+
+*   Ilk olarak blog detaylari arasinda kullanicya kendi olusturdugu blogu silebilmesi icin remove butonunu gösterdim. Bunun icin bir kosul
+    olusturdum.
+
+        {user && user.name === blog.user.name && (
+            <button onClick={handleRemove}>remove</button>
+        )}
+
+*   Ikinci adim olarak butona tiklandigi zaman calisacak olan fonksiyonu olusturdum.
+
+        const handleRemove = async () => {
+            if(confirm(`Remove blog ${blog.title} by ${blog.author}`)){
+            await removeBlog(blog.id)
+            }
+        }
+
+*   Ucuncu adim olarak App.jsx icinde blogu silmesi icin bir fonsiyon olusturdum.
+
+        const removeBlog = async (id) => {
+            await blogService.deleteBlog(id);
+            setBlogs(blogs.filter(blog => blog.id !== id));
+        };
+
+*   Son olarak da services/blogs.js icinde delete istegi olusturdum.
+
+        const deleteBlog = async (id) => {
+            const response = await axios.delete(`${baseUrl}/${id}`, {
+                headers: { Authorization: token },
+            });
+            return response.data;
+        };
